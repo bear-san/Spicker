@@ -1,0 +1,6 @@
+framework module Pods_Spicker {
+  umbrella header "Pods-Spicker-umbrella.h"
+
+  export *
+  module * { export * }
+}

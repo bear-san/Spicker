@@ -1,0 +1,6 @@
+framework module Pods_SpickerUITests {
+  umbrella header "Pods-SpickerUITests-umbrella.h"
+
+  export *
+  module * { export * }
+}

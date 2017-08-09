@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13178.6" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="Mme-DJ-0XK">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13156.2"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Settings-->
+        <scene sceneID="FMD-Ez-O9R">
+            <objects>
+                <viewController id="ORx-21-Q5T" customClass="SettingsViewController" customModule="Spicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="OEz-o7-ndY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="2RS-gQ-y1N"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="Settings" image="Config" selectedImage="Config" id="aL5-kw-ELH"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="JFB-g2-8i9" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1966" y="139"/>
+        </scene>
+        <!--TaskView-->
+        <scene sceneID="ubf-eo-xd2">
+            <objects>
+                <viewController id="ach-mG-ymm" customClass="TaskViewController" customModule="Spicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Riz-aH-0F5">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="9Jb-yr-4Wg">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </stackView>
+                            <navigationBar contentMode="scaleAspectFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yVJ-tW-nO8">
+                                <rect key="frame" x="0.0" y="20" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="barTintColor" red="0.18998533487319946" green="0.35768887400627136" blue="0.43821841478347778" alpha="1" colorSpace="calibratedRGB"/>
+                                <textAttributes key="titleTextAttributes">
+                                    <color key="textColor" name="controlBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                </textAttributes>
+                                <items>
+                                    <navigationItem title="今日やるべきこと" id="VvT-tC-jwJ"/>
+                                </items>
+                            </navigationBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Z2K-hD-4cY">
+                                <rect key="frame" x="42" y="68" width="333" height="550"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            </tableView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="first" translatesAutoresizingMaskIntoConstraints="NO" id="8rO-wl-Jiy">
+                                <rect key="frame" x="0.0" y="77" width="37" height="37"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <rect key="contentStretch" x="0.0" y="0.0" width="0.80000000000000004" height="1"/>
+                            </imageView>
+                            <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="second" translatesAutoresizingMaskIntoConstraints="NO" id="p4n-pp-7WN">
+                                <rect key="frame" x="-6" y="114" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="tRH-Gc-6J4"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="TaskView" image="Clipboard" selectedImage="Clipboard" id="rt5-eg-BL6"/>
+                    <connections>
+                        <outlet property="Bar" destination="yVJ-tW-nO8" id="C56-5A-KaU"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ei5-LB-MYc" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1965.5999999999999" y="-516.79160419790105"/>
+        </scene>
+        <!--CreateView-->
+        <scene sceneID="gKZ-G0-Y2Y">
+            <objects>
+                <viewController id="ckg-nd-ii8" userLabel="CreateView" customClass="CreateViewController" customModule="Spicker" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="fgA-mn-YRC">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LPW-Pw-9W6">
+                                <rect key="frame" x="87" y="56" width="30" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="X6M-cD-oPc">
+                                <rect key="frame" x="87" y="147" width="257" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mgw-Tf-pK6">
+                                <rect key="frame" x="87" y="209" width="257" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="優先度" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="yrI-oZ-S6l">
+                                <rect key="frame" x="12" y="59" width="55" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="タスク名" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ia1-eE-Epp">
+                                <rect key="frame" x="12" y="152" width="75" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="通知日時" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lct-c8-hvm">
+                                <rect key="frame" x="12" y="214" width="75" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HUT-bJ-ijf">
+                                <rect key="frame" x="135" y="300" width="104" height="67"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                <state key="normal" title="登録！"/>
+                                <connections>
+                                    <action selector="Register:" destination="ckg-nd-ii8" eventType="touchUpInside" id="9ky-yF-OxZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <viewLayoutGuide key="safeArea" id="HhR-Qg-Fkz"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="" image="CreateButton" selectedImage="CreateButton" id="gJU-4T-agJ"/>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="NotificationTime_box" destination="Mgw-Tf-pK6" id="z2c-Nv-s5c"/>
+                        <outlet property="Number" destination="LPW-Pw-9W6" id="3MO-1f-kC3"/>
+                        <outlet property="Priority_box" destination="LPW-Pw-9W6" id="GVU-N1-Jvb"/>
+                        <outlet property="TaskName_box" destination="X6M-cD-oPc" id="MEa-MB-mbq"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="TFc-mY-76C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1965.5999999999999" y="-1301.1994002998501"/>
+        </scene>
+        <!--Large Center Tab Bar Controller-->
+        <scene sceneID="Nhw-th-4Dx">
+            <objects>
+                <tabBarController id="Mme-DJ-0XK" customClass="HELargeCenterTabBarController" customModule="Spicker" customModuleProvider="target" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="H1O-Cs-oYe">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </tabBar>
+                    <connections>
+                        <segue destination="ach-mG-ymm" kind="relationship" relationship="viewControllers" id="Atr-kI-hqC"/>
+                        <segue destination="ckg-nd-ii8" kind="relationship" relationship="viewControllers" id="UMU-m5-B52"/>
+                        <segue destination="ORx-21-Q5T" kind="relationship" relationship="viewControllers" id="28M-Qt-XD0"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GE7-2a-fnB" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1194" y="-268"/>
+        </scene>
+    </scenes>
+    <resources>
+        <image name="Clipboard" width="32" height="32"/>
+        <image name="Config" width="32" height="32"/>
+        <image name="CreateButton" width="30" height="30"/>
+        <image name="first" width="50" height="50"/>
+        <image name="second" width="50" height="50"/>
+    </resources>
+</document>
