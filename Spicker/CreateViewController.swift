@@ -44,12 +44,9 @@ class CreateViewController : UIViewController {
         print(DataNumber)
         let TaskName = self.TaskName_box.text!
         var Priority = self.Priority_box.text!
-        if Priority != nil{
-            print("優先度は入力されています")
-            
-        }else{
-            print("優先度が入力されていないため優先度は１とします")
-            Priority = "1"
+        if Priority == ""{
+            print("優先度が入力されていないため、最下位にデータを作成します")
+            Priority = String(describing:DataNumber+1) //優先度が入力されていない場合は、最下位にデータ差し込み
         }
         let NotificationTime = self.NotificationTime_box.text!
         
@@ -67,21 +64,22 @@ class CreateViewController : UIViewController {
         for i in 1...DataNumber { //既存のJSONのデータの個数（先頭に表示するルール）分繰り返す
            print(dic[String(describing:i)])
         }
-        
-        for j in 1...Int(Priority)!-1 { //新規追加データの影響を受けないデータの作成
+        var newData:Dictionary<String,Any> = [:]
+        for j in 1...Int(Priority)!-1 { //新規追加データの影響を受けないデータの作成（新規データの優先度−１の優先度を登録する）
             print(j)
             var StrJ = String(describing:j)
-            dic[String(describing:j)] = ["Priority":JsonNum["Desctiption"][StrJ]["Priority"],"TaskName":JsonNum["Description"][StrJ]["TaskName"],"notificationTime":JsonNum["Description"][StrJ]["notificationTime"]]
-        }
-        dic[Priority] = ["Priority":Priority,"TaskName":TaskName,"notificationTime":NotificationTime] //新規追加データの差し込み
-        for k in Int(Priority)!+1...DataNumber+1{
-            print(k)
-            var StrK = String(describing:k) //優先度をString型に変換（kは新規データを追加した新しい優先度として使う）
-            dic[String(describing:k)] = ["Priority":JsonNum["Desctiption"][StrK]["Priority"],"TaskName":JsonNum["Description"][StrK]["TaskName"],"notificationTime":JsonNum["Description"][StrK]["notificationTime"]]
+            newData[String(describing:j)] = ["Priority":StrJ,"TaskName":JsonNum["Description"][StrJ]["TaskName"],"notificationTime":JsonNum["Description"][StrJ]["notificationTime"]]
         }
         DataNumber += 1
+        newData[Priority] = ["Priority":Priority,"TaskName":TaskName,"notificationTime":NotificationTime] //新規追加データの差し込み
+        for k in Int(Priority)!+1...DataNumber+1{ //新規追加データの影響を受けるデータの作成（新規データの優先度＋１の優先度を登録する）
+            print(k)
+            var StrK = String(describing:k-1) //優先度をString型に変換（kは新規データを追加した新しい優先度として使う）
+            var StrK_Newal = String(describing:k)
+            newData[String(describing:k)] = ["Priority":StrK_Newal,"TaskName":JsonNum["Description"][StrK]["TaskName"],"notificationTime":JsonNum["Description"][StrK]["notificationTime"]]
+        }
         print("新規データ追加後のデータ数は" + String(describing:DataNumber) + "個です")
-        print(dic)
+        print(newData)
         
         //Dictionary型への変換プログラム作成済み
         //Dictionary -> jsonのプログラム未作成
