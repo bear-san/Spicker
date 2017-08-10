@@ -40,11 +40,15 @@ class CreateViewController : UIViewController {
         }
         print(JsonNum)
         let DataNum = String(describing:JsonNum["DataNum"]) //データの個数を代入
-        let DataNumber = Int(DataNum)!
+        var DataNumber = Int(DataNum)!
         print(DataNumber)
         let TaskName = self.TaskName_box.text!
         var Priority = self.Priority_box.text!
-        if Priority == nil{
+        if Priority != nil{
+            print("優先度は入力されています")
+            
+        }else{
+            print("優先度が入力されていないため優先度は１とします")
             Priority = "1"
         }
         let NotificationTime = self.NotificationTime_box.text!
@@ -64,18 +68,24 @@ class CreateViewController : UIViewController {
            print(dic[String(describing:i)])
         }
         
-        var newData:Dictionary<String,Any> = [:]
-        for j in 1...Int(Priority)!-1 {
+        for j in 1...Int(Priority)!-1 { //新規追加データの影響を受けないデータの作成
             print(j)
             var StrJ = String(describing:j)
-            newData[String(describing:j)] = ["Priority":JsonNum["Desctiption"][StrJ]["Priority"],"TaskName":JsonNum["Description"][StrJ]["TaskName"],"notificationTime":JsonNum["Description"][StrJ]["notificationTime"]]
+            dic[String(describing:j)] = ["Priority":JsonNum["Desctiption"][StrJ]["Priority"],"TaskName":JsonNum["Description"][StrJ]["TaskName"],"notificationTime":JsonNum["Description"][StrJ]["notificationTime"]]
         }
-        for k in Int(Priority)!...DataNumber+1{
+        dic[Priority] = ["Priority":Priority,"TaskName":TaskName,"notificationTime":NotificationTime] //新規追加データの差し込み
+        for k in Int(Priority)!+1...DataNumber+1{
             print(k)
-            var StrK = String(describing:k)
-            newData[String(describing:k)] = ["Priority":JsonNum["Desctiption"][StrK]["Priority"],"TaskName":JsonNum["Description"][StrK]["TaskName"],"notificationTime":JsonNum["Description"][StrK]["notificationTime"]]
+            var StrK = String(describing:k) //優先度をString型に変換（kは新規データを追加した新しい優先度として使う）
+            dic[String(describing:k)] = ["Priority":JsonNum["Desctiption"][StrK]["Priority"],"TaskName":JsonNum["Description"][StrK]["TaskName"],"notificationTime":JsonNum["Description"][StrK]["notificationTime"]]
         }
+        DataNumber += 1
+        print("新規データ追加後のデータ数は" + String(describing:DataNumber) + "個です")
+        print(dic)
         
+        //Dictionary型への変換プログラム作成済み
+        //Dictionary -> jsonのプログラム未作成
+        //現在データの追加は１つのみ可（jsonを書き換えていないため）
     }
     
     func JsonGet(fileName :String) -> JSON {
