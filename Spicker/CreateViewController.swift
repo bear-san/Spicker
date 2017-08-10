@@ -81,8 +81,36 @@ class CreateViewController : UIViewController {
         print("新規データ追加後のデータ数は" + String(describing:DataNumber) + "個です")
         print(newData)
         
+        let newData_NS = NSDictionary(dictionary: newData)
+        print(newData_NS)
+        
+        var toJsonData:Dictionary<String, AnyObject> = [:]
+        toJsonData["DataNum"] = NSString(string: String(describing:DataNumber))
+        toJsonData["Description"] = NSDictionary(dictionary: newData_NS)
+        print("Dictionaryデータの作成が完了しました")
+        
+        print(toJsonData)
+        var json: String = ""
+        /*do {
+            // Dict -> JSON
+            let jsonData = try JSONSerialization.data(withJSONObject: toJsonData, options: []) //(*)options??
+            
+            json = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
+            print("jsonデータ")
+        } catch {
+            print("Error!: \(error)")
+        }
+        
+        let strData = json.data(using: String.Encoding.utf8)
+        print(strData)
+ */
+        let jsonData = try? JSONSerialization.data(withJSONObject: toJsonData, options: JSONSerialization.WritingOptions())
+        let jsonString = NSString(data: jsonData!, encoding: String.Encoding.utf8.rawValue)
+        print(jsonString)
+        
+        
         //Dictionary型への変換プログラム作成済み
-        //Dictionary -> jsonのプログラム未作成
+        //Dictionary -> jsonのプログラム作成中（エラーあり）
         //現在データの追加は１つのみ可（jsonを書き換えていないため）
     }
     
