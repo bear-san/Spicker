@@ -43,7 +43,10 @@ class CreateViewController : UIViewController {
         let DataNumber = Int(DataNum)!
         print(DataNumber)
         let TaskName = self.TaskName_box.text!
-        let Priority = self.Priority_box.text!
+        var Priority = self.Priority_box.text!
+        if Priority == nil{
+            Priority = "1"
+        }
         let NotificationTime = self.NotificationTime_box.text!
         
         let RegisterData = ["Priority":Priority,"TaskName":TaskName,"notificationTime":NotificationTime] //登録用データの作成（Dictionry型）
@@ -61,8 +64,17 @@ class CreateViewController : UIViewController {
            print(dic[String(describing:i)])
         }
         
-        
-        
+        var newData:Dictionary<String,Any> = [:]
+        for j in 1...Int(Priority)!-1 {
+            print(j)
+            var StrJ = String(describing:j)
+            newData[String(describing:j)] = ["Priority":JsonNum["Desctiption"][StrJ]["Priority"],"TaskName":JsonNum["Description"][StrJ]["TaskName"],"notificationTime":JsonNum["Description"][StrJ]["notificationTime"]]
+        }
+        for k in Int(Priority)!...DataNumber+1{
+            print(k)
+            var StrK = String(describing:k)
+            newData[String(describing:k)] = ["Priority":JsonNum["Desctiption"][StrK]["Priority"],"TaskName":JsonNum["Description"][StrK]["TaskName"],"notificationTime":JsonNum["Description"][StrK]["notificationTime"]]
+        }
         
     }
     
