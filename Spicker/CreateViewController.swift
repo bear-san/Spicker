@@ -9,9 +9,24 @@
 import Foundation
 import UIKit
 import SwiftyJSON
+import RealmSwift
+import NCMB
+
+class AppMetaData: Object{ //メタデータ・権限
+    @objc dynamic var ID = 0 //書き換えの際のデータ番号
+    @objc dynamic var isSendDataPermission = true //利用状況の送信を許可するか
+    @objc dynamic var isFirstLaunch = true //初回起動か
+}
+class Task: Object { //Realmで使うオブジェクト定義
+    @objc dynamic var ID = 0 //ID：データ管理に利用、連番を付け、基本的に一定の数値になるまで使い回しはしない
+    @objc dynamic var priority = 0 //優先度
+    @objc dynamic var TaskName = "" //タスク名
+    @objc dynamic var NotificationTime = 0 //通知時間 UNIX時間で管理
+    @objc dynamic var hasFinished = false //タスクが完了しているか（追加直後に既に終わっているわけないので基本はfalse）
+}
 
 class CreateViewController : UIViewController {
-    let Document_path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
+    
     
     @IBOutlet weak var Priority_box: UITextField!
     @IBOutlet weak var TaskName_box: UITextField!
@@ -20,98 +35,136 @@ class CreateViewController : UIViewController {
     @IBOutlet weak var Number: UITextField!
     override func viewDidLoad(){
         super.viewDidLoad()
-        let fileName = "Test"
-        let path = Document_path + "/" + fileName + ".json"
+        let database = try! Realm()
+
+
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
-    
     @IBAction func Register(_ sender: Any) { //データ登録
-        var JsonNum = JsonGet(fileName: "schedule_test1") //JSONを参照してデータの個数を特定
-        if JsonNum == nil{ //何らかの理由でJSONファイルが読み込めなかった場合は、アプリ内に保持しているサンプルのJSONファイルをDocumentにコピーして再試行
-            let path = Bundle.main.path(forResource: "example", ofType: "json")
-            let ToPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-            let second_filename = "schedule_test1.json"
-            print("\(ToPath)/\(second_filename)")
-            try! FileManager.default.copyItem(atPath: path!, toPath: "\(ToPath)/\(second_filename)");
-            JsonNum = JsonGet(fileName: "schedule_test1")
-        }
-        print(JsonNum)
-        let DataNum = String(describing:JsonNum["DataNum"]) //データの個数を代入
-        var DataNumber = Int(DataNum)!
-        print(DataNumber)
-        let TaskName = self.TaskName_box.text!
-        var Priority = self.Priority_box.text!
-        if Priority == ""{
-            print("優先度が入力されていないため、最下位にデータを作成します")
-            Priority = String(describing:DataNumber+1) //優先度が入力されていない場合は、最下位にデータ差し込み
-        }
-        let NotificationTime = self.NotificationTime_box.text!
+        print("処理に入りました")
+        let data = try! Realm()
+        let PermitDataLocal = AppMetaData()
         
-        let RegisterData = ["Priority":Priority,"TaskName":TaskName,"notificationTime":NotificationTime] //登録用データの作成（Dictionry型）
+        let PermitData = data.objects(AppMetaData.self).sorted(byProperty: "isFirstLaunch", ascending: true)
         
-        print(RegisterData)
-        var dic:Dictionary<String,Any> = [:]
-        for i in 1...DataNumber { //既存のJSONのデータの個数（先頭に表示するルール）分繰り返す
-            print(i) //iは現在の繰り返しの回数
+        if PermitData.first?.isFirstLaunch == true{
+            let alert = UIAlertController(title: "利用状況の送信",message: "アプリの品質向上のため、\n利用状況の送信に同意しますか？\n \n***送信されるデータ***\n・タスクの名前\n・タスクの優先度\n・タスクの通知時間\n　\n送信されたデータはユーザーの特定が出来ない形で保存され、ユーザーの許可なしに第三者へ提供することは一切ありません \nなおこの設定は後から「Settings」で変更できます", preferredStyle: .alert)
+            let OKbutton = UIAlertAction(title: "同意する", style: UIAlertActionStyle.default, handler: { action in
+                print("許可されました")
+                let data = try! Realm()
+                let AddData = AppMetaData()
+                
+                let ID = PermitData.count + 1
+                AddData.ID = ID
+                AddData.isFirstLaunch = false
+                AddData.isSendDataPermission = true
+                
+                try! data.write() {
+                    data.add(AddData)
+                }
+            })
+            let NGbutton = UIAlertAction(title: "同意しない", style: UIAlertActionStyle.destructive, handler: { action in
+                print("許可されませんでした")
+                let data = try! Realm()
+                let AddData = AppMetaData()
+                
+                let ID = PermitData.count + 1
+                AddData.ID = ID
+                AddData.isFirstLaunch = false
+                AddData.isSendDataPermission = false
+                
+                try! data.write() {
+                    data.add(AddData)
+                }
+            })
+            alert.addAction(OKbutton)
+            alert.addAction(NGbutton)
             
-            var StrI = String(describing:i)
-            dic[String(describing:i)] = ["Priority":JsonNum["Description"][StrI]["Priority"],"TaskName":JsonNum["Description"][StrI]["TaskName"],"notificationTime":JsonNum["Description"][StrI]["notificationTime"]] //優先度がiのデータをDictionary型変数に代入
-            //print(dic[String(describing:i)])
+            self.present(alert, animated: true, completion:nil)
+        }else{
+            print("初回起動ではありません")
         }
-        for i in 1...DataNumber { //既存のJSONのデータの個数（先頭に表示するルール）分繰り返す
-           print(dic[String(describing:i)])
+        let database = try! Realm()
+        let regiTask = Task()
+        if Priority_box.text != nil{
+            print("優先度は入力されています")
+        }else{
+            print("優先度が入力されていないため、優先度は１とします")
+            Priority_box.text = "1"
         }
-        var newData:Dictionary<String,Any> = [:]
-        for j in 1...Int(Priority)!-1 { //新規追加データの影響を受けないデータの作成（新規データの優先度−１の優先度を登録する）
-            print(j)
-            var StrJ = String(describing:j)
-            newData[String(describing:j)] = ["Priority":StrJ,"TaskName":JsonNum["Description"][StrJ]["TaskName"],"notificationTime":JsonNum["Description"][StrJ]["notificationTime"]]
+        print("regiTaskの定義")
+        var CurrentPriority = database.objects(Task.self).sorted(byProperty: "priority", ascending: true) //優先度でソート（昇順）
+        var CurrentID = database.objects(Task.self).sorted(byProperty: "ID", ascending: false) //IDでソート（降順）
+        //print(CurrentPriority)
+        let newestID = CurrentID.first?.ID //IDを降順でソートした時、現在登録されているIDの最大値
+        if Priority_box.text != nil{
+            regiTask.priority = Int(Priority_box.text!)!
+        }else{
+            regiTask.priority = 1 //優先度が入力されていない場合は優先度を1とする
         }
-        DataNumber += 1
-        newData[Priority] = ["Priority":Priority,"TaskName":TaskName,"notificationTime":NotificationTime] //新規追加データの差し込み
-        for k in Int(Priority)!+1...DataNumber+1{ //新規追加データの影響を受けるデータの作成（新規データの優先度＋１の優先度を登録する）
-            print(k)
-            var StrK = String(describing:k-1) //優先度をString型に変換（kは新規データを追加した新しい優先度として使う）
-            var StrK_Newal = String(describing:k)
-            newData[String(describing:k)] = ["Priority":StrK_Newal,"TaskName":JsonNum["Description"][StrK]["TaskName"],"notificationTime":JsonNum["Description"][StrK]["notificationTime"]]
+        if newestID != nil{ //既にデータが存在する場合の処理
+            regiTask.ID = newestID! + 1
+        }else{ //データが存在しない場合の処理
+            regiTask.ID = 1 //初回データのIDは１
         }
-        print("新規データ追加後のデータ数は" + String(describing:DataNumber) + "個です")
-        print(newData)
+        let HowManyData = CurrentPriority.count
+        if HowManyData >= 1{ //既に優先度の登録されたデータが存在する場合
+            print("データの登録が既にあります")
+            for i in 0...HowManyData-1{ //存在するデータの数分だけ繰り返す
+                print("現在" + String(describing:i+1) + "回目のデータ重複確認")
+                if CurrentPriority[i].priority == regiTask.priority{
+                    for j in i...HowManyData-1{ //優先度を+1する動作を、それ以降のデータ全てに適用
+                        try! database.write() {
+                            CurrentPriority[j].priority += 1
+                        }
+                    }
+                }
+            }
+        }else{ //優先度の登録されたデータが存在しない場合
+            regiTask.priority = 1 //優先度は自動で1とする
+        }
         
-        let newData_NS = NSDictionary(dictionary: newData)
-        print(newData_NS)
         
-        var toJsonData:Dictionary<String, AnyObject> = [:]
-        toJsonData["DataNum"] = NSString(string: String(describing:DataNumber))
-        toJsonData["Description"] = NSDictionary(dictionary: newData_NS)
-        print("Dictionaryデータの作成が完了しました")
         
-        print(toJsonData)
-        var json: String = ""
-        /*do {
-            // Dict -> JSON
-            let jsonData = try JSONSerialization.data(withJSONObject: toJsonData, options: []) //(*)options??
+        regiTask.TaskName = TaskName_box.text!
+        //task.NotificationTime -> UNIX時間と指定時刻の変換を出来るようになったら作成
+        try! database.write { //realmに保存
+            database.add(regiTask)
+        }
+        print(CurrentID)
+        
+        var MetaData = database.objects(AppMetaData.self).sorted(byKeyPath: "ID", ascending: false)
+        if MetaData.first?.isSendDataPermission == true && MetaData.first?.isFirstLaunch == false{
+            print("データの送信が許可されています")
+            let date = Date()
+            let format = DateFormatter()
+            format.dateFormat = "YYYY-MM-dd"
+            let strDate = format.string(from: date)
             
-            json = NSString(data: jsonData, encoding: String.Encoding.utf8.rawValue)! as String
-            print("jsonデータ")
-        } catch {
-            print("Error!: \(error)")
+            let obj = NCMBObject(className: "Spicker_Data")
+            // オブジェクトに値を設定
+            obj?.setObject(strDate, forKey: "Date")
+            obj?.setObject(regiTask.TaskName, forKey: "taskName")
+            obj?.setObject(regiTask.priority, forKey: "taskPriority")
+            obj?.setObject(regiTask.NotificationTime, forKey: "notificationTime")
+            // データストアへの保存を実施
+            obj?.saveInBackground({ (error) in
+                if error != nil {
+                    // 保存に失敗した場合の処理
+                    print("保存に失敗しました")
+                }else{
+                    // 保存に成功した場合の処理
+                    print("送信しました")
+                    print(error)
+                }
+            })
+        }else{
+            print("データの送信は許可されていません")
+            print(MetaData)
         }
-        
-        let strData = json.data(using: String.Encoding.utf8)
-        print(strData)
- */
-        let jsonData = try? JSONSerialization.data(withJSONObject: toJsonData, options: JSONSerialization.WritingOptions())
-        let jsonString = NSString(data: jsonData!, encoding: String.Encoding.utf8.rawValue)
-        print(jsonString)
-        
-        
-        //Dictionary型への変換プログラム作成済み
-        //Dictionary -> jsonのプログラム作成中（エラーあり）
-        //現在データの追加は１つのみ可（jsonを書き換えていないため）
     }
     
     func JsonGet(fileName :String) -> JSON {

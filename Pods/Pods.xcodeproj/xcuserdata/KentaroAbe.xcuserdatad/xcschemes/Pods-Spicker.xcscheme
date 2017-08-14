@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0900"
+   LastUpgradeVersion = "0700"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "FA00281A6BB0F4480D8E8F806FB5F439"
+               BlueprintIdentifier = "363CCA801167F3BE362BB70E142B1853"
                BuildableName = "Pods_Spicker.framework"
                BlueprintName = "Pods-Spicker"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -47,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "FA00281A6BB0F4480D8E8F806FB5F439"
+            BlueprintIdentifier = "363CCA801167F3BE362BB70E142B1853"
             BuildableName = "Pods_Spicker.framework"
             BlueprintName = "Pods-Spicker"
             ReferencedContainer = "container:Pods.xcodeproj">
