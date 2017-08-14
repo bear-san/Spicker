@@ -8,24 +8,63 @@
 
 import UIKit
 import CoreData
+import NCMB
+import RealmSwift
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate{
 
     var window: UIWindow?
-
-
+    let applicationkey = "58f2e74ae4756806feaffeafd1f1dc91df9438b6471702ad1797702cd4f41e26"
+    let clientkey = "d920d03343160df8aaff4ba1e7e3b4e601fe02632ba6eca9dbd2ebbedcaeaf2c"
+    
+    var tasks = [String]()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        NCMB.setApplicationKey(applicationkey, clientKey: clientkey)
         // Override point for customization after application launch.
+        let userDefault = UserDefaults.standard
+        // "firstLaunch"をキーに、Bool型の値を保持する
+        let dict = ["firstLaunch": true]
+        // デフォルト値登録
+        // ※すでに値が更新されていた場合は、更新後の値のままになる
+        userDefault.register(defaults: dict)
+        
+        // "firstLaunch"に紐づく値がtrueなら(=初回起動)、値をfalseに更新して処理を行う
+        if userDefault.bool(forKey: "firstLaunch") {
+            userDefault.set(false, forKey: "firstLaunch")
+            print("初回起動の時だけ呼ばれるよ")
+            let data = try! Realm()
+            let AddData = AppMetaData()
+            
+            AddData.isFirstLaunch = true
+            AddData.isSendDataPermission = false
+            
+            try! data.write() {
+                data.add(AddData)
+            }
+        }else{
+            
+            print("初回起動じゃなくても呼ばれるアプリ起動時の処理だよ")
+        }
+        let data = try! Realm()
+        let BaseData = data.objects(Task.self).sorted(byKeyPath: "priority", ascending: true)
+        
+        for i in 0...BaseData.count-1 {
+            self.tasks.append(BaseData[i].TaskName)
+        }
+        
+        print(tasks)
         
         return true
     }
-
+    
+    
+    
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.
     }
-
+    
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.

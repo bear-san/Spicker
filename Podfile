@@ -12,6 +12,7 @@ target 'Spicker' do
    pod 'ChameleonFramework/Swift', :git => 'https://github.com/ViccAlexander/Chameleon.git'
    pod 'TextFieldEffects'
    pod 'RealmSwift'
+   pod 'NCMB', :git => 'https://github.com/NIFTYCloud-mbaas/ncmb_ios.git'
   target 'SpickerTests' do
     inherit! :search_paths
     # Pods for testing

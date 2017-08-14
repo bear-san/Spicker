@@ -9,13 +9,12 @@
 import Foundation
 import UIKit
 import SwiftyJSON
-let tasks = ["今日やること1","今日やること2"]
+import RealmSwift
 
-class TaskViewController : UIViewController/*, UITableViewDelegate, UITableViewDataSource */{
-    
-    
-    
+class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
     @IBOutlet weak var Bar: UINavigationBar!
+    @IBOutlet weak var tableView: UITableView!
+    let ap = UIApplication.shared.delegate as! AppDelegate
     
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -23,8 +22,8 @@ class TaskViewController : UIViewController/*, UITableViewDelegate, UITableViewD
         let fileName = "Test"
         let path = Document_path + "/" + fileName + ".json"
         print(path)
-        
-        
+        print(ap.tasks)
+        self.tableView.reloadData()
     }
     
     override func didReceiveMemoryWarning() {
@@ -49,28 +48,48 @@ class TaskViewController : UIViewController/*, UITableViewDelegate, UITableViewD
         
     }
     
-   // public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{ //セクションごとの行数を返す
-       /* let sectionData = tableData[section]
- return sectionData.count:?
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int{ //セクションごとの行数を返す
+        return ap.tasks.count
     }
     
-    public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{ //各行に表示するセルを返す
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cell") //セルを作る
-        let sectionData = tasks[(IndexPath() as NSIndexPath).section]
-        let cellData = tasks[(IndexPath() as NSIndexPath).row]
-        cell.textLabel?.text = cellData.0
-        cell.detailTextLabel?.text = cellData.1
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell{ //各行に表示するセルを返す
+        let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
+        
+        // セルに表示する値を設定する
+        cell.textLabel!.text = ap.tasks[indexPath.row]
+        
         return cell
     }
     
-    public func numberOfSections(in tableView: UITableView) -> Int { //セクション数を返す（初期値は１）
+    func numberOfSections(in tableView: UITableView) -> Int { //セクション数を返す（初期値は１）
         return 1 //今回は別に何かセクション分けする必要はないので必ず１を返す
     }
     
-    public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { //セクションタイトルを返す（初期値は空）
-        return tasks[section]
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { //セクションタイトルを返す（初期値は空）
+        return ""
     }
     
- */
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        print("セル番号：(indexPath.row) セルの内容：(fruits[indexPath.row])")
+    }
+ 
+    func DataDelete(ByDate :Bool) -> String {
+        print("データの削除を行います")
+        var message = ""
+        if ByDate == true{
+            message = "日時削除完了"
+        }else{
+            message = "削除完了"
+        }
+        
+        return message
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.tableView.reloadData()
+    }
+
+    
 }
 
