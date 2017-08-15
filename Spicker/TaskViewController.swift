@@ -15,6 +15,7 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
     @IBOutlet weak var Bar: UINavigationBar!
     @IBOutlet weak var tableView: UITableView!
     let ap = UIApplication.shared.delegate as! AppDelegate
+
     
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -23,6 +24,8 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
         let path = Document_path + "/" + fileName + ".json"
         print(path)
         print(ap.tasks)
+        tableView.dataSource = self
+        tableView.delegate = self
         self.tableView.reloadData()
     }
     
@@ -69,7 +72,7 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
         return ""
     }
     
-    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         print("セル番号：(indexPath.row) セルの内容：(fruits[indexPath.row])")
     }
  
