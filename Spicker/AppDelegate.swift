@@ -49,13 +49,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
         let data = try! Realm()
         let BaseData = data.objects(Task.self).sorted(byKeyPath: "priority", ascending: true)
         
-        for i in 0...BaseData.count-1 {
-            self.tasks.append(BaseData[i].TaskName)
+        if BaseData.count == 0{
+            
+            return true
+            
+        }else{
+            for i in 0...BaseData.count-1 {
+                self.tasks.append(BaseData[i].TaskName)
+            }
+            
+            print(tasks)
+            
+            return true
         }
-        
-        print(tasks)
-        
-        return true
     }
     
     

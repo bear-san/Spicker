@@ -28,7 +28,7 @@
         <!--TaskView-->
         <scene sceneID="ubf-eo-xd2">
             <objects>
-                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="ach-mG-ymm" customClass="TaskViewController" customModule="Spicker" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="ach-mG-ymm" customClass="TaskViewController" customModule="Spicker" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Riz-aH-0F5">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -53,11 +53,11 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyCell" id="q1b-l1-L34">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="MyCell" id="q1b-l1-L34">
                                         <rect key="frame" x="0.0" y="28" width="333" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="q1b-l1-L34" id="dsb-Tx-Yuy">
-                                            <rect key="frame" x="0.0" y="0.0" width="333" height="43.5"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="300" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                         </tableViewCellContentView>
                                         <accessibility key="accessibilityConfiguration" identifier="MyCell">
@@ -65,6 +65,11 @@
                                         </accessibility>
                                     </tableViewCell>
                                 </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="ach-mG-ymm" id="fzW-hp-sDG"/>
+                                    <outlet property="delegate" destination="ach-mG-ymm" id="zss-9C-sVm"/>
+                                    <outlet property="prefetchDataSource" destination="ach-mG-ymm" id="1Ou-nw-ZCJ"/>
+                                </connections>
                             </tableView>
                             <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" fixedFrame="YES" insetsLayoutMarginsFromSafeArea="NO" image="first" translatesAutoresizingMaskIntoConstraints="NO" id="8rO-wl-Jiy">
                                 <rect key="frame" x="0.0" y="77" width="37" height="37"/>
@@ -80,9 +85,10 @@
                         <viewLayoutGuide key="safeArea" id="tRH-Gc-6J4"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="TaskView" image="Clipboard" selectedImage="Clipboard" id="rt5-eg-BL6"/>
+                    <navigationItem key="navigationItem" id="BhZ-JY-2YG"/>
                     <connections>
                         <outlet property="Bar" destination="yVJ-tW-nO8" id="C56-5A-KaU"/>
-                        <outlet property="tableView" destination="Z2K-hD-4cY" id="Y77-KN-Ywm"/>
+                        <outlet property="cellTableView" destination="Z2K-hD-4cY" id="bSh-mG-N3F"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ei5-LB-MYc" userLabel="First Responder" sceneMemberID="firstResponder"/>

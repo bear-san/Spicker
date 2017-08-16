@@ -11,11 +11,12 @@ import UIKit
 import SwiftyJSON
 import RealmSwift
 
-class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
+class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarDelegate {
     @IBOutlet weak var Bar: UINavigationBar!
-    @IBOutlet weak var tableView: UITableView!
-    let ap = UIApplication.shared.delegate as! AppDelegate
+    @IBOutlet weak var cellTableView: UITableView!
 
+    let ap = UIApplication.shared.delegate as! AppDelegate
+    var refreshControl:UIRefreshControl!
     
     override func viewDidLoad(){
         super.viewDidLoad()
@@ -24,9 +25,36 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
         let path = Document_path + "/" + fileName + ".json"
         print(path)
         print(ap.tasks)
-        tableView.dataSource = self
-        tableView.delegate = self
-        self.tableView.reloadData()
+        cellTableView.dataSource = self
+        cellTableView.delegate = self
+        self.cellTableView.reloadData()
+        
+        self.refreshControl = UIRefreshControl()
+        self.refreshControl.attributedTitle = NSAttributedString(string: "引っ張って更新")
+        refreshControl.addTarget(self, action: #selector(self.refreshControlValueChanged(sender:)), for: .valueChanged)
+        self.cellTableView.addSubview(refreshControl)
+    }
+    @objc func refreshControlValueChanged(sender: UIRefreshControl) {
+        print("テーブルを下に引っ張った時に呼ばれる")
+        print("再読込を行います")
+        ap.tasks = [String]()
+        let data = try! Realm()
+        let BaseData = data.objects(Task.self).sorted(byKeyPath: "priority", ascending: true)
+        
+        for i in 0...BaseData.count-1 {
+            ap.tasks.append(BaseData[i].TaskName)
+        }
+        
+        print(ap.tasks)
+        
+        self.cellTableView.reloadData()
+        
+        sender.endRefreshing()
+    }
+    
+    func tabBar(_ tabBar: UITabBar, didSelect item: UITabBarItem) {
+        
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -72,10 +100,29 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
         return ""
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("セル番号：(indexPath.row) セルの内容：(fruits[indexPath.row])")
+    /*func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        print("セル番号：\(indexPath.row) セルの内容：\(ap.tasks[indexPath.row])")
+    }*/
+    
+    func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        
+        let deleteButton: UITableViewRowAction = UITableViewRowAction(style: .normal, title: "完了！") { (action, index) -> Void in
+            self.ap.tasks.remove(at: indexPath.row)
+            tableView.deleteRows(at: [indexPath], with: .fade)
+            let DataMethod = CreateViewController()
+            DataMethod.DataDeletePerDay(dataKeyPriority: indexPath.row)
+        }
+        deleteButton.backgroundColor = UIColor.blue
+        
+        return [deleteButton]
     }
- 
+    
+    func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String? {
+        return "削除"
+    }
+
+
+    
     func DataDelete(ByDate :Bool) -> String {
         print("データの削除を行います")
         var message = ""
@@ -90,7 +137,7 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.tableView.reloadData()
+        self.cellTableView.reloadData()
     }
 
     

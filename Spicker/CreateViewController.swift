@@ -44,6 +44,11 @@ class CreateViewController : UIViewController {
         super.didReceiveMemoryWarning()
     }
     @IBAction func Register(_ sender: Any) { //データ登録
+        
+        var CurrentPriority :Results<Task>?
+        Priority_box.endEditing(true)
+        TaskName_box.endEditing(true)
+        NotificationTime_box.endEditing(true)
         print("処理に入りました")
         let data = try! Realm()
         let PermitDataLocal = AppMetaData()
@@ -96,7 +101,7 @@ class CreateViewController : UIViewController {
             Priority_box.text = "1"
         }
         print("regiTaskの定義")
-        var CurrentPriority = database.objects(Task.self).sorted(byProperty: "priority", ascending: true) //優先度でソート（昇順）
+        CurrentPriority = database.objects(Task.self).sorted(byProperty: "priority", ascending: true) //優先度でソート（昇順）
         var CurrentID = database.objects(Task.self).sorted(byProperty: "ID", ascending: false) //IDでソート（降順）
         //print(CurrentPriority)
         let newestID = CurrentID.first?.ID //IDを降順でソートした時、現在登録されているIDの最大値
@@ -110,15 +115,20 @@ class CreateViewController : UIViewController {
         }else{ //データが存在しない場合の処理
             regiTask.ID = 1 //初回データのIDは１
         }
-        let HowManyData = CurrentPriority.count
+        var HowManyData = 0
+        if CurrentPriority?.count != nil{
+            HowManyData = 0
+        }else{
+            HowManyData = (CurrentPriority?.count)!
+        }
         if HowManyData >= 1{ //既に優先度の登録されたデータが存在する場合
             print("データの登録が既にあります")
             for i in 0...HowManyData-1{ //存在するデータの数分だけ繰り返す
                 print("現在" + String(describing:i+1) + "回目のデータ重複確認")
-                if CurrentPriority[i].priority == regiTask.priority{
+                if CurrentPriority![i].priority == regiTask.priority{
                     for j in i...HowManyData-1{ //優先度を+1する動作を、それ以降のデータ全てに適用
                         try! database.write() {
-                            CurrentPriority[j].priority += 1
+                            CurrentPriority![j].priority += 1
                         }
                     }
                 }
@@ -165,6 +175,37 @@ class CreateViewController : UIViewController {
             print("データの送信は許可されていません")
             print(MetaData)
         }
+        
+        print("全ての登録処理が完了しました")
+        self.tabBarController?.selectedIndex = 0;
+       
+    }
+    
+    func DataDeletePerDay(dataKeyPriority :Int) -> String{
+        var Result = ""
+        
+        let OldDataBase = try! Realm()
+        let oldData = OldDataBase.objects(Task.self).sorted(byKeyPath: "priority", ascending: true)
+        print(oldData)
+        let deleteData = oldData[dataKeyPriority]
+        try! OldDataBase.write() {
+            OldDataBase.delete(deleteData)
+        }
+        print("データを削除しました")
+        if dataKeyPriority == oldData.last?.priority{
+            try! OldDataBase.write() {
+                oldData[dataKeyPriority].priority -= 1
+            }
+        }else{
+            for i in dataKeyPriority...oldData.count{
+                try! OldDataBase.write() {
+                    oldData[i].priority -= 1
+                }
+            }
+        }
+        Result = "Complete_Delete"
+        
+        return Result
     }
     
     func JsonGet(fileName :String) -> JSON {
