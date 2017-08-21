@@ -14,7 +14,8 @@ import RealmSwift
 class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarDelegate {
     @IBOutlet weak var Bar: UINavigationBar!
     @IBOutlet weak var cellTableView: UITableView!
-
+    @IBOutlet weak var HowManyTasks: UILabel!
+    
     let ap = UIApplication.shared.delegate as! AppDelegate
     var refreshControl:UIRefreshControl!
     
@@ -33,6 +34,8 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
         self.refreshControl.attributedTitle = NSAttributedString(string: "引っ張って更新")
         refreshControl.addTarget(self, action: #selector(self.refreshControlValueChanged(sender:)), for: .valueChanged)
         self.cellTableView.addSubview(refreshControl)
+        
+        RenewHowMany()
     }
     @objc func refreshControlValueChanged(sender: UIRefreshControl) {
         print("テーブルを下に引っ張った時に呼ばれる")
@@ -40,10 +43,12 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
         ap.tasks = [String]()
         let data = try! Realm()
         let BaseData = data.objects(Task.self).sorted(byKeyPath: "priority", ascending: true)
-        
-        for i in 0...BaseData.count-1 {
-            ap.tasks.append(BaseData[i].TaskName)
+        if BaseData.count >= 1{
+            for i in 0...BaseData.count-1 {
+                ap.tasks.append(BaseData[i].TaskName)
+            }
         }
+        RenewHowMany()
         
         print(ap.tasks)
         
@@ -111,6 +116,7 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
             tableView.deleteRows(at: [indexPath], with: .fade)
             let DataMethod = CreateViewController()
             DataMethod.DataDeletePerDay(dataKeyPriority: indexPath.row)
+            self.RenewHowMany()
         }
         deleteButton.backgroundColor = UIColor.blue
         
@@ -140,6 +146,10 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
         self.cellTableView.reloadData()
     }
 
-    
+    func RenewHowMany() {
+        let DataMethod = CreateViewController()
+        let DataBase = try! Realm()
+        self.HowManyTasks.text = String(describing:DataBase.objects(Task.self).count)
+    }
 }
 

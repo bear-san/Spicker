@@ -104,7 +104,7 @@ class CreateViewController : UIViewController {
         var CurrentID = database.objects(Task.self).sorted(byProperty: "ID", ascending: false) //IDでソート（降順）
         //print(CurrentPriority)
         let newestID = CurrentID.first?.ID //IDを降順でソートした時、現在登録されているIDの最大値
-        if Priority_box.text != nil{
+        if Priority_box.text != ""{
             regiTask.priority = Int(Priority_box.text!)!
         }else{
             regiTask.priority = 1 //優先度が入力されていない場合は優先度を1とする
@@ -194,6 +194,9 @@ class CreateViewController : UIViewController {
         }
         
         print("全ての登録処理が完了しました")
+        Priority_box.text = ""
+        TaskName_box.text = ""
+        NotificationTime_box.text = ""
         let AfterData = try! Realm()
         CurrentPriority = AfterData.objects(Task.self).sorted(byProperty: "priority", ascending: false)
         self.tabBarController?.selectedIndex = 0;
@@ -205,10 +208,17 @@ class CreateViewController : UIViewController {
         let OldDataBase = try! Realm()
         let OldData = OldDataBase.objects(Task.self).sorted(byKeyPath: "priority", ascending: true)
         print(OldData)
-        let DeleteID = OldData[dataKeyPriority].ID
-        let deleteData = OldData[dataKeyPriority-1]
-        removeengine:for i in 0...OldData.count{
-           
+        //let DeleteID = OldData[dataKeyPriority].ID
+        let deleteData = OldData[dataKeyPriority]
+        for i in 0...OldData.count-1{
+            if OldData[i].priority >= deleteData.priority{
+                try! OldDataBase.write() {
+                    OldData[i].priority -= 1
+                }
+            }
+        }
+        try! OldDataBase.write() {
+            OldDataBase.delete(deleteData)
         }
         
         
