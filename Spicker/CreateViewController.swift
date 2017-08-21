@@ -123,16 +123,13 @@ class CreateViewController : UIViewController {
             }else{
                 print("データの登録が既にあります")
                 if regiTask.priority != 1{
-                    try! database.write(){
-                        CurrentPriority[HowManyData-1].priority += 1
-                    }
-                    for i in 1...HowManyData{
+                    rewriteengine:for i in 1...HowManyData{
                         
                         print("現在\(i)回目のデータ書き換え")
-                        var LeftI = HowManyData - i //書き換えようとしているデータ番地
-                        if LeftI > regiTask.priority-1 { //書き換えようとしているデータ番地が
+                        var LeftI = HowManyData - i //書き換えようとしているデータ番地（最大データ数からカウントダウン）
+                        if LeftI < regiTask.priority-1 { //書き換えようとしているデータ番地が
                             print("ここで処理を中断します")
-                            continue
+                            break rewriteengine
                         }
                         print("書き換えるデータ番地：\(LeftI)")
                         try! database.write() {
@@ -205,8 +202,17 @@ class CreateViewController : UIViewController {
     
     func DataDeletePerDay(dataKeyPriority :Int) -> String{
         var Result = ""
-        
         let OldDataBase = try! Realm()
+        let OldData = OldDataBase.objects(Task.self).sorted(byKeyPath: "priority", ascending: true)
+        print(OldData)
+        let DeleteID = OldData[dataKeyPriority].ID
+        let deleteData = OldData[dataKeyPriority-1]
+        removeengine:for i in 0...OldData.count{
+           
+        }
+        
+        
+        /*let OldDataBase = try! Realm()
         let oldData = OldDataBase.objects(Task.self).sorted(byKeyPath: "priority", ascending: true)
         print(oldData)
         let deleteData = oldData[dataKeyPriority]
@@ -214,17 +220,9 @@ class CreateViewController : UIViewController {
             OldDataBase.delete(deleteData)
         }
         print("データを削除しました")
-        if dataKeyPriority == oldData.last?.priority{
-            try! OldDataBase.write() {
-                oldData[dataKeyPriority].priority -= 1
-            }
-        }else{
-            for i in dataKeyPriority...oldData.count{
-                try! OldDataBase.write() {
-                    oldData[i].priority -= 1
-                }
-            }
-        }
+        let rewriteData = OldDataBase.objects(Task.self).sorted(byKeyPath: "priority", ascending: true)
+        let deletePriority = deleteData.priority
+        */
         Result = "Complete_Delete"
         
         return Result
