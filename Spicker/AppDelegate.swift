@@ -10,9 +10,11 @@ import UIKit
 import CoreData
 import NCMB
 import RealmSwift
+import UserNotifications
+import NotificationCenter
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate{
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate{
 
     var window: UIWindow?
     let applicationkey = "58f2e74ae4756806feaffeafd1f1dc91df9438b6471702ad1797702cd4f41e26"
@@ -20,6 +22,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate{
     
     var tasks = [String]()
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in if granted {print("通知許可")}
+        }
+
         NCMB.setApplicationKey(applicationkey, clientKey: clientkey)
         // Override point for customization after application launch.
         let userDefault = UserDefaults.standard

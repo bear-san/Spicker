@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spicker/CreateViewController.swift"
-            timestampString = "524991132.842933"
+            timestampString = "525166269.579994"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "104"
-            endingLineNumber = "104"
+            startingLineNumber = "128"
+            endingLineNumber = "128"
             landmarkName = "Register(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spicker/CreateViewController.swift"
-            timestampString = "524991132.843117"
+            timestampString = "525166269.580577"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "96"
-            endingLineNumber = "96"
+            startingLineNumber = "120"
+            endingLineNumber = "120"
             landmarkName = "Register(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spicker/CreateViewController.swift"
-            timestampString = "524991132.843209"
+            timestampString = "525166269.581023"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "158"
-            endingLineNumber = "158"
+            startingLineNumber = "182"
+            endingLineNumber = "182"
             landmarkName = "Register(_:)"
             landmarkType = "7">
          </BreakpointContent>
@@ -58,28 +58,12 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Spicker/CreateViewController.swift"
-            timestampString = "524991132.843291"
+            timestampString = "525166269.581456"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "118"
-            endingLineNumber = "118"
+            startingLineNumber = "142"
+            endingLineNumber = "142"
             landmarkName = "Register(_:)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "Spicker/CreateViewController.swift"
-            timestampString = "524991132.84339"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "211"
-            endingLineNumber = "211"
-            landmarkName = "DataDeletePerDay(dataKeyPriority:)"
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
