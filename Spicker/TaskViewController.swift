@@ -92,7 +92,7 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
         let cell: UITableViewCell = tableView.dequeueReusableCell(withIdentifier: "MyCell", for: indexPath)
         
         // セルに表示する値を設定する
-        cell.textLabel!.text = ap.tasks[indexPath.row]
+        cell.textLabel!.text = "\(indexPath.row+1)：\(ap.tasks[indexPath.row])"
         
         return cell
     }

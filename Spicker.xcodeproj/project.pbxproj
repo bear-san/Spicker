@@ -67,6 +67,7 @@
 		4F77B48C152948F7B6B3E56F /* Pods-Spicker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spicker.release.xcconfig"; path = "Pods/Target Support Files/Pods-Spicker/Pods-Spicker.release.xcconfig"; sourceTree = "<group>"; };
 		660CF72E98CD93641B24D299 /* Pods-SpickerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpickerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpickerUITests/Pods-SpickerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		85AF5A019FBFBD32BAA8A967 /* Pods_SpickerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpickerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		96DAE9141F52AECD002B38FA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9D074F135C2D706B425FD8A9 /* Pods-SpickerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpickerTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpickerTests/Pods-SpickerTests.debug.xcconfig"; sourceTree = "<group>"; };
 		A36443D1F71CE9B98B366A67 /* Pods-SpickerUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpickerUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-SpickerUITests/Pods-SpickerUITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -102,6 +103,7 @@
 		17C4D2EF1F33664A003F31B1 = {
 			isa = PBXGroup;
 			children = (
+				96DAE9141F52AECD002B38FA /* README.md */,
 				17C4D2FA1F33664A003F31B1 /* Spicker */,
 				17C4D3121F33664A003F31B1 /* SpickerTests */,
 				17C4D31D1F33664A003F31B1 /* SpickerUITests */,
@@ -257,7 +259,7 @@
 				TargetAttributes = {
 					17C4D2F71F33664A003F31B1 = {
 						CreatedOnToolsVersion = 9.0;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 					17C4D30E1F33664A003F31B1 = {
 						CreatedOnToolsVersion = 9.0;
@@ -658,14 +660,15 @@
 			baseConfigurationReference = 25F99AD050C9E987EEBC1A8A /* Pods-Spicker.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9YN493UFZE;
 				INFOPLIST_FILE = Spicker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.akbart.app.spicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b8b8ed15-7f17-4f63-8614-886ea105c97d";
-				PROVISIONING_PROFILE_SPECIFIER = Spicker;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -676,14 +679,15 @@
 			baseConfigurationReference = 4F77B48C152948F7B6B3E56F /* Pods-Spicker.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 9YN493UFZE;
 				INFOPLIST_FILE = Spicker/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.akbart.app.spicker;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b8b8ed15-7f17-4f63-8614-886ea105c97d";
-				PROVISIONING_PROFILE_SPECIFIER = Spicker;
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
