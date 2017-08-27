@@ -33,6 +33,7 @@ class CreateViewController : UIViewController {
     @IBOutlet weak var Priority_box: UITextField!
     @IBOutlet weak var TaskName_box: UITextField!
     @IBOutlet weak var NotificationTime: UIDatePicker!
+    @IBOutlet weak var dontnotification: UISwitch!
     
     
     @IBOutlet weak var Number: UITextField!
@@ -95,24 +96,29 @@ class CreateViewController : UIViewController {
         TaskName_box.endEditing(true)
         print("処理に入りました")
         NotificationTime.locale = Locale(identifier: "ja-JP")
-        let notificationTimeInJSTfrom1970 =
-            NotificationTime.date.timeIntervalSince1970 + 32400
+        let notificationTimeInJSTfrom1970 = NotificationTime.date.timeIntervalSince1970 + 32400
         let NowTimeInUNIX = Int(Date().timeIntervalSince1970)
         let WantFireNotificationTime = Double(Int(notificationTimeInJSTfrom1970) - NowTimeInUNIX - 32400)
         print("通知時間：\(WantFireNotificationTime)秒後")
         
-        
-        if WantFireNotificationTime <= 0 {
-            let alert = UIAlertController(title: "エラー",message: "時間は未来の時間を選択してください", preferredStyle: .alert)
-            let OKbutton = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
-                isCanRegister = false
-            })
-            alert.addAction(OKbutton)
-            
-            self.present(alert, animated: true, completion:nil)
-        }else{
+        if dontnotification.isOn == true{
             isCanRegister = true
+        }else{
+            if WantFireNotificationTime <= 0 {
+                let alert = UIAlertController(title: "エラー",message: "時間は未来の時間を選択してください", preferredStyle: .alert)
+                let OKbutton = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+                    isCanRegister = false
+                })
+                alert.addAction(OKbutton)
+                
+                self.present(alert, animated: true, completion:nil)
+            }else{
+                isCanRegister = true
+            }
         }
+        
+        
+        
         
         if isCanRegister == true{
             let database = try! Realm()
@@ -222,18 +228,20 @@ class CreateViewController : UIViewController {
             
             //Int型で現在時刻を取得
             
-            
-            let notification_left_time = Date.init(timeIntervalSinceNow: notificationTimeInJSTfrom1970)
-            let notification = UNMutableNotificationContent()
-            notification.title = "TodayHaveToDo"
-            notification.body = "\(regiTask.TaskName)は終わった？？"
-            notification.sound = UNNotificationSound.default()
-            let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: WantFireNotificationTime, repeats: false)
-            let request = UNNotificationRequest.init(identifier: "Spicker_\(regiTask.TaskName)", content: notification, trigger: trigger)
-            let center = UNUserNotificationCenter.current()
-            center.add(request)
-            
-            print("全ての登録処理が完了しました")
+            if dontnotification.isOn == false{
+                let notification_left_time = Date.init(timeIntervalSinceNow: notificationTimeInJSTfrom1970)
+                let notification = UNMutableNotificationContent()
+                notification.title = "TodayHaveToDo"
+                notification.body = "\(regiTask.TaskName)は終わった？？"
+                notification.sound = UNNotificationSound.default()
+                let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: WantFireNotificationTime, repeats: false)
+                let request = UNNotificationRequest.init(identifier: "Spicker_\(regiTask.TaskName)", content: notification, trigger: trigger)
+                let center = UNUserNotificationCenter.current()
+                center.add(request)
+                
+                print("全ての登録処理が完了しました")
+                
+            }
             Priority_box.text = ""
             TaskName_box.text = ""
             let AfterData = try! Realm()
@@ -252,6 +260,8 @@ class CreateViewController : UIViewController {
         print(OldData)
     
         let deleteData = OldData[dataKeyPriority]
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: ["Spicker_\(deleteData.TaskName)"])
         for i in 0...OldData.count-1{
             if OldData[i].priority >= deleteData.priority{
                 try! OldDataBase.write() {
