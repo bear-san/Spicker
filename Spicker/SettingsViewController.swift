@@ -8,8 +8,11 @@
 
 import Foundation
 import UIKit
+import SwiftyJSON
+import NCMB
+import RealmSwift
 
-class SettingsViewController : UITableViewController {
+class SettingsViewController : UIViewController {
     
     override func viewDidLoad(){
         super.viewDidLoad()

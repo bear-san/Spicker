@@ -14,17 +14,21 @@ import NCMB
 import UserNotifications
 import NotificationCenter
 
+class LastDateInfo: Object{
+    @objc dynamic var lastDate = 0 //最終読み書き日付（UNIX時間で管理）
+}
 class AppMetaData: Object{ //メタデータ・権限
     @objc dynamic var ID = 0 //書き換えの際のデータ番号
     @objc dynamic var isSendDataPermission = true //利用状況の送信を許可するか
     @objc dynamic var isFirstLaunch = true //初回起動か
+    @objc dynamic var CloseTask = 0 //タスクの締め時間
 }
 class Task: Object { //Realmで使うオブジェクト定義
     @objc dynamic var ID = 0 //ID：データ管理に利用、連番を付け、基本的に一定の数値になるまで使い回しはしない
     @objc dynamic var priority = 0 //優先度
     @objc dynamic var TaskName = "" //タスク名
     @objc dynamic var NotificationTime = 0 //通知時間 UNIX時間で管理
-    @objc dynamic var hasFinished = false //タスクが完了しているか（追加直後に既に終わっているわけないので基本はfalse）
+    @objc dynamic var hasFinished = false //タスクが完了しているか（追加時点で既に終わっているわけないので基本はfalse）
 }
 
 class CreateViewController : UIViewController {
@@ -39,11 +43,11 @@ class CreateViewController : UIViewController {
     @IBOutlet weak var Number: UITextField!
     override func viewDidLoad(){
         super.viewDidLoad()
-        let database = try! Realm()
+        //let database = try! Realm()
         let data = try! Realm()
-        let PermitDataLocal = AppMetaData()
+        //let PermitDataLocal = AppMetaData()
         
-        let PermitData = data.objects(AppMetaData.self).sorted(byProperty: "isFirstLaunch", ascending: true)
+        let PermitData = data.objects(AppMetaData.self).sorted(byKeyPath: "isFirstLaunch", ascending: true)
         
         if PermitData.first?.isFirstLaunch == true{
             let alert = UIAlertController(title: "利用状況の送信",message: "アプリの品質向上のため、\n利用状況の送信に同意しますか？\n \n***送信されるデータ***\n・タスクを追加した日\n・タスクの名前\n・タスクの優先度\n・タスクの通知時間\n　\n送信されたデータはユーザーの特定が出来ない形で保存され、ユーザーの許可なしに第三者へ提供することは一切ありません \nなおこの設定は後から「Settings」で変更できます", preferredStyle: .alert)
@@ -56,6 +60,7 @@ class CreateViewController : UIViewController {
                 AddData.ID = ID
                 AddData.isFirstLaunch = false
                 AddData.isSendDataPermission = true
+                AddData.CloseTask = 0
                 
                 try! data.write() {
                     data.add(AddData)
@@ -70,6 +75,7 @@ class CreateViewController : UIViewController {
                 AddData.ID = ID
                 AddData.isFirstLaunch = false
                 AddData.isSendDataPermission = false
+                AddData.CloseTask = 0
                 
                 try! data.write() {
                     data.add(AddData)
@@ -130,7 +136,7 @@ class CreateViewController : UIViewController {
                 Priority_box.text = "1"
             }
             print("regiTaskの定義")
-            var CurrentPriority = database.objects(Task.self).sorted(byProperty: "priority", ascending: true) //優先度でソート（昇順）
+            var CurrentPriority = database.objects(Task.self).sorted(byKeyPath: "priority", ascending: true) //優先度でソート（昇順）
             var CurrentID = database.objects(Task.self).sorted(byProperty: "ID", ascending: false) //IDでソート（降順）
             //print(CurrentPriority)
             let newestID = CurrentID.first?.ID //IDを降順でソートした時、現在登録されているIDの最大値
@@ -143,6 +149,11 @@ class CreateViewController : UIViewController {
                 regiTask.ID = newestID! + 1
             }else{ //データが存在しない場合の処理
                 regiTask.ID = 1 //初回データのIDは１
+            }
+            if CurrentPriority.count >= 1{
+                if regiTask.priority > (CurrentPriority.last?.priority)! + 1{ //優先度に連続性を持たせるため、既存のもので最大の優先度＋２以上であれば最大優先度＋１に整形
+                    regiTask.priority = (CurrentPriority.last?.priority)! + 1
+                }
             }
             let HowManyData = CurrentPriority.count
             if HowManyData >= 1{
@@ -232,7 +243,7 @@ class CreateViewController : UIViewController {
                 let notification_left_time = Date.init(timeIntervalSinceNow: notificationTimeInJSTfrom1970)
                 let notification = UNMutableNotificationContent()
                 notification.title = "TodayHaveToDo"
-                notification.body = "\(regiTask.TaskName)は終わった？？"
+                notification.body = "\(regiTask.TaskName)　は終わった？？"
                 notification.sound = UNNotificationSound.default()
                 let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: WantFireNotificationTime, repeats: false)
                 let request = UNNotificationRequest.init(identifier: "Spicker_\(regiTask.TaskName)", content: notification, trigger: trigger)
@@ -247,6 +258,7 @@ class CreateViewController : UIViewController {
             let AfterData = try! Realm()
             CurrentPriority = AfterData.objects(Task.self).sorted(byProperty: "priority", ascending: false)
             self.tabBarController?.selectedIndex = 0;
+            TimeControl()
         }else{
             print("エラー")
         }
@@ -279,7 +291,34 @@ class CreateViewController : UIViewController {
     }
     
     func TimeControl() {
+        let Today = Date()
+        let dateFormat = DateFormatter()
+        dateFormat.dateFormat = "YYYY-MM-dd"
         
+        let StrDate = dateFormat.string(from: Today)
+        print("今日は\(StrDate)です")
+        
+        /*let MetaDateDB = try! Realm()
+        let DataFormat = LastDateInfo()
+        let MetaDateData = MetaDateDB.objects(LastDateInfo.self)
+        print(MetaDateData)
+        DataFormat.lastDate = StrDate
+        if MetaDateData.count <= 0{
+            print("最後のデータ書き込みが行われた日はありません！")
+            try! MetaDateDB.write() {
+                MetaDateDB.add(DataFormat)
+            }
+        }else{
+            print("最後のデータ書き込みが行われた日は\((MetaDateData.first?.lastDate)!)です")
+            try! MetaDateDB.write() {
+                MetaDateData.first?.lastDate = StrDate
+            }
+        }*/
+        
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void){
+        print("通知を受信しました")
     }
     
     func JsonGet(fileName :String) -> JSON {

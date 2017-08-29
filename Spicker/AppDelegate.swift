@@ -21,9 +21,33 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     let clientkey = "d920d03343160df8aaff4ba1e7e3b4e601fe02632ba6eca9dbd2ebbedcaeaf2c"
     
     var tasks = [String]()
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in if granted {print("通知許可")}
         }
+        if #available(iOS 10.0, *){
+            /** iOS10以上 **/
+            let center = UNUserNotificationCenter.current()
+            center.requestAuthorization(options: [.alert, .badge, .sound]) {granted, error in
+                if error != nil {
+                    // エラー時の処理
+                    return
+                }
+                if granted {
+                    // デバイストークンの要求
+                    UIApplication.shared.registerForRemoteNotifications()
+                }
+            }
+        } else {
+            /** iOS8以上iOS10未満 **/
+            //通知のタイプを設定したsettingを用意
+            let setting = UIUserNotificationSettings(types: [.alert, .badge, .sound], categories: nil)
+            //通知のタイプを設定
+            application.registerUserNotificationSettings(setting)
+            //DevoceTokenを要求
+            UIApplication.shared.registerForRemoteNotifications()
+        }
+        application.registerForRemoteNotifications()
 
         NCMB.setApplicationKey(applicationkey, clientKey: clientkey)
         // Override point for customization after application launch.
@@ -126,6 +150,56 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
     // MARK: - Core Data Saving support
 
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data){
+        // 端末情報を扱うNCMBInstallationのインスタンスを作成
+        let installation = NCMBInstallation.current()
+        // デバイストークンの設定
+        installation?.setDeviceTokenFrom(deviceToken as Data!)
+        // 端末情報をデータストアに登録
+        installation?.saveInBackground { (error) -> Void in
+            if (error != nil){
+                // 端末情報の登録に失敗した時の処理
+                if ((error as! NSError).code == 409001){
+                    // 失敗した原因がデバイストークンの重複だった場合
+                    // 端末情報を上書き保存する
+                    self.updateExistInstallation(currentInstallation: installation!)
+                }else{
+                    // デバイストークンの重複以外のエラーが返ってきた場合
+                }
+            }else{
+                // 端末情報の登録に成功した時の処理
+            }
+        }
+    }
+    
+    
+    // 端末情報を上書き保存するupdateExistInstallationメソッドを用意
+    func updateExistInstallation(currentInstallation : NCMBInstallation){
+        let installationQuery: NCMBQuery = NCMBInstallation.query()
+        installationQuery.whereKey("deviceToken", equalTo:currentInstallation.deviceToken)
+        do {
+            let searchDevice = try installationQuery.getFirstObject()
+            // 端末情報の検索に成功した場合
+            // 上書き保存する
+            currentInstallation.objectId = (searchDevice as AnyObject).objectId
+            currentInstallation.saveInBackground { (error) -> Void in
+                if (error != nil){
+                    // 端末情報の登録に失敗した時の処理
+                }else{
+                    // 端末情報の登録に成功した時の処理
+                }
+            }
+        } catch _ as NSError {
+            // 端末情報の検索に失敗した場合の処理
+        }
+    }
+    
+    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+        // MARK: アプリが起動しているときに実行される処理を追記する場所
+        print("通知ｷﾀ━━━━(ﾟ∀ﾟ)━━━━!!")
+        
+    }
+    
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
@@ -138,6 +212,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 fatalError("Unresolved error \(nserror), \(nserror.userInfo)")
             }
         }
+    }
+    
+    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
+        print("通知ｷﾀ━━━━(ﾟ∀ﾟ)━━━━!!")
+        
     }
 
 }

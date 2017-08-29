@@ -13,6 +13,7 @@ target 'Spicker' do
    pod 'TextFieldEffects'
    pod 'RealmSwift'
    pod 'NCMB', :git => 'https://github.com/NIFTYCloud-mbaas/ncmb_ios.git'
+   pod 'MMPopLabel'
   target 'SpickerTests' do
     inherit! :search_paths
     # Pods for testing
