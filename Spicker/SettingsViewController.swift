@@ -11,6 +11,7 @@ import UIKit
 import SwiftyJSON
 import NCMB
 import RealmSwift
+import Alamofire
 
 class SettingsViewController : UIViewController {
     

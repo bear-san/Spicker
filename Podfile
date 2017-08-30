@@ -14,6 +14,7 @@ target 'Spicker' do
    pod 'RealmSwift'
    pod 'NCMB', :git => 'https://github.com/NIFTYCloud-mbaas/ncmb_ios.git'
    pod 'MMPopLabel'
+   pod 'Alamofire'
   target 'SpickerTests' do
     inherit! :search_paths
     # Pods for testing
