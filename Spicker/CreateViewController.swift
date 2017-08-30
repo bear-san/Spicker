@@ -22,6 +22,7 @@ class AppMetaData: Object{ //メタデータ・権限
     @objc dynamic var isSendDataPermission = true //利用状況の送信を許可するか
     @objc dynamic var isFirstLaunch = true //初回起動か
     @objc dynamic var CloseTask = 0 //タスクの締め時間
+    @objc dynamic var isToday = true //データの登録を当日に行うか
 }
 class Task: Object { //Realmで使うオブジェクト定義
     @objc dynamic var ID = 0 //ID：データ管理に利用、連番を付け、基本的に一定の数値になるまで使い回しはしない
@@ -44,9 +45,17 @@ class CreateViewController : UIViewController {
     override func viewDidLoad(){
         super.viewDidLoad()
         //let database = try! Realm()
-        let data = try! Realm()
-        //let PermitDataLocal = AppMetaData()
         
+        //let PermitDataLocal = AppMetaData()
+        permitCreate()
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+    }
+    
+    func permitCreate() {
+        let data = try! Realm()
         let PermitData = data.objects(AppMetaData.self).sorted(byKeyPath: "isFirstLaunch", ascending: true)
         
         if PermitData.first?.isFirstLaunch == true{
@@ -88,11 +97,6 @@ class CreateViewController : UIViewController {
         }else{
             print("初回起動ではありません")
         }
-        
-    }
-    
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
     }
     @IBAction func Register(_ sender: Any) { //データ登録
         
@@ -129,21 +133,25 @@ class CreateViewController : UIViewController {
         if isCanRegister == true{
             let database = try! Realm()
             let regiTask = Task()
-            if Priority_box.text != nil{
-                print("優先度は入力されています")
-            }else{
-                print("優先度が入力されていないため、優先度は１とします")
-                Priority_box.text = "1"
-            }
-            print("regiTaskの定義")
             var CurrentPriority = database.objects(Task.self).sorted(byKeyPath: "priority", ascending: true) //優先度でソート（昇順）
             var CurrentID = database.objects(Task.self).sorted(byProperty: "ID", ascending: false) //IDでソート（降順）
-            //print(CurrentPriority)
+            /*if Priority_box.text != nil{
+                print("優先度は入力されています")
+            }else{
+                print("優先度が入力されていないため、優先度を最大の優先度とします")
+                Priority_box.text =
+            }*/
+            
             let newestID = CurrentID.first?.ID //IDを降順でソートした時、現在登録されているIDの最大値
+            let maxiumPriority = CurrentPriority.last?.priority //優先度を昇順でソートしたとき、現在登録されている優先度で最も低いもの（＝数字が大きいもの）
             if Priority_box.text != ""{
                 regiTask.priority = Int(Priority_box.text!)!
             }else{
-                regiTask.priority = 1 //優先度が入力されていない場合は優先度を1とする
+                if maxiumPriority != nil{
+                    regiTask.priority = maxiumPriority! + 1 //優先度が入力されていない場合は優先度を最も低い値にする
+                }else{
+                    regiTask.priority = 1 //そもそもデータが登録されていない場合は優先度を１とする
+                }
             }
             if newestID != nil{ //既にデータが存在する場合の処理
                 regiTask.ID = newestID! + 1
@@ -298,11 +306,16 @@ class CreateViewController : UIViewController {
         let StrDate = dateFormat.string(from: Today)
         print("今日は\(StrDate)です")
         
-        /*let MetaDateDB = try! Realm()
+        let MetaDateDB = try! Realm()
         let DataFormat = LastDateInfo()
         let MetaDateData = MetaDateDB.objects(LastDateInfo.self)
         print(MetaDateData)
-        DataFormat.lastDate = StrDate
+        let dateInDate = dateFormat.date(from: StrDate)
+        let dateInterval = dateInDate?.timeIntervalSince1970
+        let dateUnix = Date(timeIntervalSince1970: dateInterval!)
+        print(dateInterval)
+        print(Int(dateInterval!))
+        DataFormat.lastDate = Int(dateInterval!)
         if MetaDateData.count <= 0{
             print("最後のデータ書き込みが行われた日はありません！")
             try! MetaDateDB.write() {
@@ -311,9 +324,9 @@ class CreateViewController : UIViewController {
         }else{
             print("最後のデータ書き込みが行われた日は\((MetaDateData.first?.lastDate)!)です")
             try! MetaDateDB.write() {
-                MetaDateData.first?.lastDate = StrDate
+                MetaDateData.first?.lastDate = Int(dateInterval!)
             }
-        }*/
+        }
         
     }
     

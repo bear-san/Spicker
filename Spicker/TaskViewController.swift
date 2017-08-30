@@ -20,6 +20,8 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
     var refreshControl:UIRefreshControl!
     
     override func viewDidLoad(){
+        let kurasu = CreateViewController()
+        kurasu.permitCreate()
         super.viewDidLoad()
         let Document_path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
         let fileName = "Test"

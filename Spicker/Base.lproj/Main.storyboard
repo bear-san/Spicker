@@ -96,7 +96,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="rOa-jZ-ryG">
-                                <rect key="frame" x="0.0" y="211" width="375" height="270"/>
+                                <rect key="frame" x="0.0" y="257" width="375" height="224"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
@@ -110,12 +110,18 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l33-OI-qCW">
+                                <rect key="frame" x="149" y="213" width="77" height="30"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="設定を保存"/>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <viewLayoutGuide key="safeArea" id="2RS-gQ-y1N"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="Config" selectedImage="Config" id="aL5-kw-ELH"/>
                     <connections>
+                        <outlet property="TableView" destination="rOa-jZ-ryG" id="ZHi-0w-SLO"/>
                         <outlet property="Time" destination="MMa-T3-M3g" id="R8f-R8-3Nk"/>
                         <outlet property="TodayOrTom" destination="NmP-yL-apU" id="CX8-9y-bUc"/>
                         <outlet property="isAgree" destination="I8N-gW-YM4" id="Plq-Ut-Unv"/>
