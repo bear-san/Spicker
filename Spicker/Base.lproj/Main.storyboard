@@ -55,7 +55,7 @@
                                 <locale key="locale" localeIdentifier="ja_JP"/>
                             </datePicker>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NmP-yL-apU">
-                                <rect key="frame" x="169" y="74" width="81" height="83"/>
+                                <rect key="frame" x="151" y="74" width="99" height="83"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </pickerView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="ーーーーーーーーーーーーーーーーーーーーーーーーーー" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xOx-q0-0jv">

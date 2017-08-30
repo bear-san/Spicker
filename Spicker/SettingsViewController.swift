@@ -13,7 +13,21 @@ import NCMB
 import RealmSwift
 import Alamofire
 
-class SettingsViewController : UIViewController, UITableViewDelegate, UITableViewDataSource {
+class SettingsViewController : UIViewController, UITableViewDelegate, UITableViewDataSource,UIPickerViewDelegate,UIPickerViewDataSource {
+    var yesOrTod = ["前日","当日"]
+    
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        return 1
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        return yesOrTod.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String {
+        return yesOrTod[row]
+    }
+    
     
     @IBOutlet weak var TodayOrTom: UIPickerView!
     @IBOutlet weak var Time: UIDatePicker!
@@ -26,22 +40,19 @@ class SettingsViewController : UIViewController, UITableViewDelegate, UITableVie
     
     override func viewDidLoad(){
         super.viewDidLoad()
+        print("表示されました")
+        TodayOrTom.delegate = self
+        TodayOrTom.dataSource = self
         let kurasu = CreateViewController()
         kurasu.permitCreate()
         let currentSettingsDB = try! Realm()
-        let currentSettings = currentSettingsDB.objects(AppMetaData.self)
+        let currentSettings = currentSettingsDB.objects(AppMetaData.self).sorted(byKeyPath: "ID", ascending: true)
         
-        if currentSettings.first?.isSendDataPermission != nil{
-            isAgree.setOn((currentSettings.first?.isSendDataPermission)!, animated: false)
-        }else{
-            isAgree.setOn(false, animated: false)
-        }
-        if currentSettings.first?.CloseTask != nil{
-            let currentTime = (currentSettings.first?.CloseTask)!
-            let date = Date(timeIntervalSince1970: TimeInterval(currentTime))
-            Time.date = date
-        }else{
-        }
+        isAgree.setOn((currentSettings.last?.isSendDataPermission)!, animated: true)
+        let currentTime = (currentSettings.first?.CloseTask)!
+        let date = Date(timeIntervalSince1970: TimeInterval(currentTime))
+        Time.date = date
+
         TableView.dataSource = self
         TableView.delegate = self
         self.refreshControl = UIRefreshControl()
@@ -50,6 +61,7 @@ class SettingsViewController : UIViewController, UITableViewDelegate, UITableVie
         self.TableView.addSubview(refreshControl)
         announce()
         TableView.reloadData()
+        //isAgree.reloadInputViews()
         
     }
     
