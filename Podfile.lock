@@ -1,9 +1,11 @@
 PODS:
+  - Alamofire (4.5.0)
   - ChameleonFramework/Default (2.1.0)
   - ChameleonFramework/Swift (2.1.0):
     - ChameleonFramework/Default
   - FlatUIKit (1.6.2)
   - FoldingTabBar (1.1.2)
+  - MMPopLabel (0.1.3)
   - NCMB (2.3.7)
   - Realm (2.9.0):
     - Realm/Headers (= 2.9.0)
@@ -14,9 +16,11 @@ PODS:
   - TextFieldEffects (1.3.3)
 
 DEPENDENCIES:
+  - Alamofire
   - ChameleonFramework/Swift (from `https://github.com/ViccAlexander/Chameleon.git`)
   - FlatUIKit
   - FoldingTabBar
+  - MMPopLabel
   - NCMB (from `https://github.com/NIFTYCloud-mbaas/ncmb_ios.git`)
   - RealmSwift
   - SwiftyJSON
@@ -37,15 +41,17 @@ CHECKOUT OPTIONS:
     :git: https://github.com/NIFTYCloud-mbaas/ncmb_ios.git
 
 SPEC CHECKSUMS:
+  Alamofire: f28cdffd29de33a7bfa022cbd63ae95a27fae140
   ChameleonFramework: d21a3cc247abfe5e37609a283a8238b03575cf64
   FlatUIKit: 1b41f0d4952ce8d970d8479ce79df54a960242c4
   FoldingTabBar: 3b1e54c0dfa6103e93e8d95d1e75a22c6d8e2843
+  MMPopLabel: d9909f18cacd5200f005ef3f0790c9490357b57a
   NCMB: 705b707898a144664e033321d679859f18533803
   Realm: f14ab1673502559cb16592ddb8f383c474c13e05
   RealmSwift: 16ad2c187042c4934f49750375582fe508627dcb
   SwiftyJSON: c2842d878f95482ffceec5709abc3d05680c0220
   TextFieldEffects: 8706f53525f1ce51c8921b7af32237caab50c467
 
-PODFILE CHECKSUM: cd234221dc7828ae1a2136259243bc043b5db020
+PODFILE CHECKSUM: 1bf58c141348fb747e4e7797c38eb3310f669278
 
 COCOAPODS: 1.3.1

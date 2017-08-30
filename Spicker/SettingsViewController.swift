@@ -15,12 +15,36 @@ import Alamofire
 
 class SettingsViewController : UIViewController {
     
+    @IBOutlet weak var TodayOrTom: UIPickerView!
+    @IBOutlet weak var Time: UIDatePicker!
+    @IBOutlet weak var isAgree: UISwitch!
+    
     override func viewDidLoad(){
         super.viewDidLoad()
+        let currentSettingsDB = try! Realm()
+        let currentSettings = currentSettingsDB.objects(AppMetaData.self)
+        
+        if currentSettings.first?.isSendDataPermission != nil{
+            isAgree.isOn = (currentSettings.first?.isSendDataPermission)!
+        }else{
+            isAgree.isOn = false
+        }
+        if currentSettings.first?.CloseTask != nil{
+            let currentTime = (currentSettings.first?.CloseTask)!
+            let date = Date(timeIntervalSince1970: TimeInterval(currentTime))
+            Time.date = date
+        }else{
+        }
+        
     }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
     }
+    
+    func Settings() {
+        
+    }
+    
 }
 

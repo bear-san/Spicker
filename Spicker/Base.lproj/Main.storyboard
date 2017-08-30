@@ -115,6 +115,11 @@
                         <viewLayoutGuide key="safeArea" id="2RS-gQ-y1N"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Settings" image="Config" selectedImage="Config" id="aL5-kw-ELH"/>
+                    <connections>
+                        <outlet property="Time" destination="MMa-T3-M3g" id="R8f-R8-3Nk"/>
+                        <outlet property="TodayOrTom" destination="NmP-yL-apU" id="CX8-9y-bUc"/>
+                        <outlet property="isAgree" destination="I8N-gW-YM4" id="Plq-Ut-Unv"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="JFB-g2-8i9" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
