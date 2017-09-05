@@ -22,6 +22,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     var tasks = [String]()
     
+    var isDataDeleted = false
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         UNUserNotificationCenter.current().requestAuthorization(options:[.badge, .alert, .sound]) { (granted, error) in if granted {print("通知許可")}
         }
@@ -79,16 +81,40 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let BaseData = data.objects(Task.self).sorted(byKeyPath: "priority", ascending: true)
         
         if BaseData.count == 0{
-            
-            return true
-            
+
         }else{
             for i in 0...BaseData.count-1 {
                 self.tasks.append(BaseData[i].TaskName)
             }
             
             print(tasks)
-            
+        }
+        
+        let date = Date()
+        let dateInUNIX = Int(date.timeIntervalSince1970)
+        
+        let database = try! Realm()
+        let metaData = database.objects(AppMetaData.self).sorted(byKeyPath: "ID", ascending: false)
+        
+        if dateInUNIX >= (metaData.first?.CloseTask)!{
+            print("登録されているデータは古いものです！")
+            let currentData = database.objects(Task.self).sorted(byKeyPath: "ID", ascending: true)
+            if currentData.count >= 1{
+                var LastData = currentData.count - 1
+                for z in 0...LastData{
+                    try! database.write() {
+                        print("削除するデータ：\(currentData[0])")
+                        database.delete(currentData[0])
+                    }
+                }
+
+            }
+            try! database.write() {
+                metaData.first?.CloseTask += 3600*24
+            }
+            return true
+        }else{
+            print("登録されているデータは今日のものです")
             return true
         }
     }
@@ -103,10 +129,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
+        print("アプリケーションがバックグラウンドになりました")
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "applicationDidEnterBackground"), object: nil)
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
         // Called as part of the transition from the background to the active state; here you can undo many of the changes made on entering the background.
+        print("アプリケーションがフォアグラウンドになります")
+        let date = Date()
+        let dateInUNIX = Int(date.timeIntervalSince1970)
+        
+        let database = try! Realm()
+        let metaData = database.objects(AppMetaData.self).sorted(byKeyPath: "ID", ascending: false)
+        
+        if dateInUNIX >= (metaData.first?.CloseTask)!{
+            print("登録されているデータは古いものです！")
+            let currentData = database.objects(Task.self).sorted(byKeyPath: "ID", ascending: true)
+            if currentData.count >= 1{
+                var LastData = currentData.count - 1
+                for z in 0...LastData{
+                    try! database.write() {
+                        print("削除するデータ：\(currentData[0])")
+                        database.delete(currentData[0])
+                    }
+                }
+                
+            }
+            try! database.write() {
+                metaData.first?.CloseTask += 3600*24
+            }
+        }else{
+            print("登録されているデータは今日のものです")
+        }
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "applicationWillEnterForeground"), object: nil)
     }
 
     func applicationDidBecomeActive(_ application: UIApplication) {

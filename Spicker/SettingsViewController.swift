@@ -95,7 +95,7 @@ class SettingsViewController : UIViewController, UITableViewDelegate, UITableVie
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? { //セクションタイトルを返す（"お知らせ"）
-        return "運営からのお知らせ"
+        return "お知らせ一覧"
     }
     
     @objc func refreshControlValueChanged(sender: UIRefreshControl) {

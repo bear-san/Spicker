@@ -48,6 +48,8 @@ class CreateViewController : UIViewController {
         
         //let PermitDataLocal = AppMetaData()
         permitCreate()
+        
+        
     }
     
     override func didReceiveMemoryWarning() {

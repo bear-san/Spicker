@@ -18,15 +18,12 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
     
     let ap = UIApplication.shared.delegate as! AppDelegate
     var refreshControl:UIRefreshControl!
-    
+
     override func viewDidLoad(){
+        super.viewDidLoad()
+        NotificationCenter.default.addObserver(self, selector: #selector(self.viewWillEnterForeground(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         let kurasu = CreateViewController()
         kurasu.permitCreate()
-        super.viewDidLoad()
-        let Document_path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-        let fileName = "Test"
-        let path = Document_path + "/" + fileName + ".json"
-        print(path)
         print(ap.tasks)
         cellTableView.dataSource = self
         cellTableView.delegate = self
@@ -145,13 +142,37 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.cellTableView.reloadData()
+        
+        
     }
-
+    @objc func viewWillEnterForeground(_ notification: Notification?) {
+        if (self.isViewLoaded && (self.view.window != nil)) {
+            print("フォアグラウンド")
+            RenewHowMany()
+        }
+        
+    }
     func RenewHowMany() {
         let DataMethod = CreateViewController()
         let DataBase = try! Realm()
-        self.HowManyTasks.text = String(describing:DataBase.objects(Task.self).count)
+        if DataBase.objects(Task.self).count != nil{
+            self.HowManyTasks.text = String(describing:DataBase.objects(Task.self).count)
+        }else{
+            self.HowManyTasks.text = "0"
+        }
+        ap.tasks = [String]()
+        let data = try! Realm()
+        let BaseData = data.objects(Task.self).sorted(byKeyPath: "priority", ascending: true)
+        if BaseData.count >= 1{
+            for i in 0...BaseData.count-1 {
+                ap.tasks.append(BaseData[i].TaskName)
+            }
+        }
+        
+        print(ap.tasks)
+        
+        self.cellTableView.reloadData()
+        
     }
 }
 
