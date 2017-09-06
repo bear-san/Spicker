@@ -15,6 +15,7 @@ import Alamofire
 
 class SettingsViewController : UIViewController, UITableViewDelegate, UITableViewDataSource,UIPickerViewDelegate,UIPickerViewDataSource {
     var yesOrTod = ["前日","当日"]
+    var desc = 0
     
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
         return 1
@@ -25,6 +26,7 @@ class SettingsViewController : UIViewController, UITableViewDelegate, UITableVie
     }
     
     func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String {
+        self.desc = row
         return yesOrTod[row]
     }
     
@@ -82,6 +84,33 @@ class SettingsViewController : UIViewController, UITableViewDelegate, UITableVie
         
     }
     
+    @IBAction func Save(_ sender: Any) {
+        let database = try! Realm()
+        print(Int(Time.date.timeIntervalSince1970))
+        let rawTime = Time.date
+        var nextTime = Int(rawTime.timeIntervalSince1970)
+        print(nextTime)
+        if self.desc == 1{ //当日指定の場合はNextTimeに１日プラス（今日は実行しない）
+            nextTime += 3600*24
+        }
+        var TimeIn = Date(timeIntervalSince1970: TimeInterval(nextTime))
+        let format = DateFormatter()
+        format.dateFormat = "yyyy-MM-dd HH:mm"
+        let TimeInFormatted = format.string(from: TimeIn)
+        let newFormat = "\(TimeInFormatted):00"
+        format.dateFormat = "yyyy-MM-dd HH:mm:ss"
+        let newDate = format.date(from: newFormat)
+        
+        var newDateUNIX = Int((newDate?.timeIntervalSince1970)!)
+        
+        let today = Date()
+        if Int(today.timeIntervalSince1970) >= newDateUNIX{ //指定時間を既に過ぎている場合はNextTimeに１日プラス（今日は実行しない）
+            newDateUNIX += 3600*24
+        }
+        print(newDateUNIX)
+    }
+    
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { //セクション内の行数を返す
         return self.items.count
     }
@@ -105,6 +134,8 @@ class SettingsViewController : UIViewController, UITableViewDelegate, UITableVie
         
         sender.endRefreshing()
     }
+    
+    
     
 }
 

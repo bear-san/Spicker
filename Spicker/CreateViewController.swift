@@ -253,7 +253,7 @@ class CreateViewController : UIViewController {
                 let notification_left_time = Date.init(timeIntervalSinceNow: notificationTimeInJSTfrom1970)
                 let notification = UNMutableNotificationContent()
                 notification.title = "TodayHaveToDo"
-                notification.body = "\(regiTask.TaskName)　は終わった？？"
+                notification.body = "\(regiTask.TaskName)は終わった？？"
                 notification.sound = UNNotificationSound.default()
                 let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: WantFireNotificationTime, repeats: false)
                 let request = UNNotificationRequest.init(identifier: "Spicker_\(regiTask.TaskName)", content: notification, trigger: trigger)

@@ -21,6 +21,9 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
 
     override func viewDidLoad(){
         super.viewDidLoad()
+        let data = try! Realm()
+        let PermitData = data.objects(AppMetaData.self).sorted(byKeyPath: "ID", ascending: false)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(self.viewWillEnterForeground(_:)), name: NSNotification.Name.UIApplicationWillEnterForeground, object: nil)
         let kurasu = CreateViewController()
         kurasu.permitCreate()
@@ -34,7 +37,9 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
         refreshControl.addTarget(self, action: #selector(self.refreshControlValueChanged(sender:)), for: .valueChanged)
         self.cellTableView.addSubview(refreshControl)
         
+        
         RenewHowMany()
+
     }
     @objc func refreshControlValueChanged(sender: UIRefreshControl) {
         print("テーブルを下に引っ張った時に呼ばれる")
@@ -60,6 +65,7 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
         
         
     }
+    
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -143,7 +149,27 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        let database = try! Realm()
+        let PermitData = database.objects(AppMetaData.self).sorted(byKeyPath: "ID", ascending: false)
+        print(PermitData)
+        if PermitData.first?.isFirstLaunch == true {
+            print("初回起動と判断されます")
+            let alert = UIAlertController(title: "Message",message: "初期設定を行ってください", preferredStyle: .alert)
+            let OKbutton = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
+                print("OK")
+                let storyboard: UIStoryboard = self.storyboard!
+                let nextView = storyboard.instantiateViewController(withIdentifier: "TimeSettings") as! FirstSettingsController
+                self.present(nextView, animated: true, completion: nil)
+            })
+            
+            alert.addAction(OKbutton)
+            
+            self.present(alert, animated: true, completion:nil)
+        }
     }
     @objc func viewWillEnterForeground(_ notification: Notification?) {
         if (self.isViewLoaded && (self.view.window != nil)) {

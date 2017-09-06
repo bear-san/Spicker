@@ -46,7 +46,7 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="1" translatesAutoresizingMaskIntoConstraints="NO" id="MMa-T3-M3g">
+                            <datePicker contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="10" translatesAutoresizingMaskIntoConstraints="NO" id="MMa-T3-M3g">
                                 <rect key="frame" x="252" y="74" width="113" height="83"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <date key="date" timeIntervalSinceReferenceDate="525769278.90799302">
@@ -114,6 +114,9 @@
                                 <rect key="frame" x="149" y="213" width="77" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="設定を保存"/>
+                                <connections>
+                                    <action selector="Save:" destination="ORx-21-Q5T" eventType="touchUpInside" id="00D-58-SBS"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -457,6 +460,9 @@
                                 <rect key="frame" x="172" y="563" width="31" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="次へ"/>
+                                <connections>
+                                    <action selector="GotoFinish:" destination="i85-oT-Fjb" eventType="touchUpInside" id="uO4-5U-3Pc"/>
+                                </connections>
                             </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -510,9 +516,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <state key="normal" title="完了"/>
                                 <connections>
-                                    <segue destination="ach-mG-ymm" kind="popoverPresentation" popoverAnchorView="a7a-cg-Kl1" id="cga-RC-HE4">
-                                        <popoverArrowDirection key="popoverArrowDirection" up="YES" down="YES" left="YES" right="YES"/>
-                                    </segue>
+                                    <segue destination="Mme-DJ-0XK" kind="show" id="kJo-vI-ee0"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="「完了」をタップして続行してください" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SjN-KT-Qbe">
@@ -556,7 +560,4 @@
         <image name="Config" width="32" height="32"/>
         <image name="CreateButton" width="30" height="30"/>
     </resources>
-    <inferredMetricsTieBreakers>
-        <segue reference="cga-RC-HE4"/>
-    </inferredMetricsTieBreakers>
 </document>

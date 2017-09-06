@@ -38,6 +38,7 @@ class FirstSettingsController: UIViewController,UIPickerViewDelegate,UIPickerVie
             self.todayOrTom.dataSource = self
             self.todayOrTom.delegate = self
         }
+        
     }
     
     override func didReceiveMemoryWarning() {
@@ -77,7 +78,6 @@ class FirstSettingsController: UIViewController,UIPickerViewDelegate,UIPickerVie
         try! data.write() {
             PermitData[0].CloseTask = newDateUNIX
         }
-        print(PermitData)
         
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "OtherSettings") as! FirstSettingsController
@@ -114,4 +114,17 @@ class FirstSettingsController: UIViewController,UIPickerViewDelegate,UIPickerVie
         
         self.present(alert, animated: true, completion:nil)
     }
+    
+    @IBAction func GotoFinish(_ sender: Any) {
+        let data = try! Realm()
+        let AddData = AppMetaData()
+        let PermitData = data.objects(AppMetaData.self).sorted(byKeyPath: "ID", ascending: false)
+        try! data.write() {
+            PermitData[0].isFirstLaunch = false
+        }
+        let storyboard: UIStoryboard = self.storyboard!
+        let nextView = storyboard.instantiateViewController(withIdentifier: "Complete") as! FirstSettingsController
+        self.present(nextView, animated: true, completion: nil)
+    }
+    
 }
