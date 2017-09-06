@@ -9,6 +9,16 @@
 			<key>orderHint</key>
 			<integer>13</integer>
 		</dict>
+		<key>SpickerWatch (Notification).xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>15</integer>
+		</dict>
+		<key>SpickerWatch.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>14</integer>
+		</dict>
 	</dict>
 </dict>
 </plist>

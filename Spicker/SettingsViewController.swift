@@ -64,6 +64,11 @@ class SettingsViewController : UIViewController, UITableViewDelegate, UITableVie
         announce()
         TableView.reloadData()
         //isAgree.reloadInputViews()
+        if currentSettings.first?.isToday == true{
+            self.TodayOrTom.selectRow(1, inComponent: 0, animated: true)
+        }else{
+            self.TodayOrTom.selectRow(0, inComponent: 0, animated: true)
+        }
         
     }
     
@@ -108,6 +113,20 @@ class SettingsViewController : UIViewController, UITableViewDelegate, UITableVie
             newDateUNIX += 3600*24
         }
         print(newDateUNIX)
+        
+        let currentData = database.objects(AppMetaData.self).sorted(byKeyPath: "ID", ascending: false)
+        
+        var isToday = false
+        
+        if TodayOrTom.selectedRow(inComponent: 0) == 0{
+            isToday = false
+        }else{
+            isToday = true
+        }
+        
+        try! database.write(){
+            currentData.first?.isToday = isToday
+        }
     }
     
     

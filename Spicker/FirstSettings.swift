@@ -73,10 +73,17 @@ class FirstSettingsController: UIViewController,UIPickerViewDelegate,UIPickerVie
             newDateUNIX += 3600*24
         }
         print(newDateUNIX)
+        var isToday = false
+        if todayOrTom.selectedRow(inComponent: 0) == 0{
+            isToday = false
+        }else{
+            isToday = true
+        }
         let data = try! Realm()
         let PermitData = data.objects(AppMetaData.self).sorted(byKeyPath: "ID", ascending: false)
         try! data.write() {
             PermitData[0].CloseTask = newDateUNIX
+            PermitData[0].isToday = isToday
         }
         
         let storyboard: UIStoryboard = self.storyboard!
