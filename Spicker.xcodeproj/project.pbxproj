@@ -21,14 +21,6 @@
 		17C4D31F1F33664A003F31B1 /* SpickerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C4D31E1F33664A003F31B1 /* SpickerUITests.swift */; };
 		227A0A77E9B23F106C13C3CE /* Pods_SpickerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E9CE8300EB81EF5CA76344C /* Pods_SpickerUITests.framework */; };
 		86B3B1CE595891FD52725FB6 /* Pods_Spicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C6B5E26A59A3E95F6B3F0A7 /* Pods_Spicker.framework */; };
-		961A79A21F5FB4A700EFE04B /* Interface.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 961A79A01F5FB4A700EFE04B /* Interface.storyboard */; };
-		961A79A41F5FB4A700EFE04B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 961A79A31F5FB4A700EFE04B /* Assets.xcassets */; };
-		961A79AB1F5FB4A700EFE04B /* SpickerWatch Extension.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 961A79AA1F5FB4A700EFE04B /* SpickerWatch Extension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		961A79B01F5FB4A700EFE04B /* InterfaceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A79AF1F5FB4A700EFE04B /* InterfaceController.swift */; };
-		961A79B21F5FB4A700EFE04B /* ExtensionDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A79B11F5FB4A700EFE04B /* ExtensionDelegate.swift */; };
-		961A79B41F5FB4A700EFE04B /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 961A79B31F5FB4A700EFE04B /* NotificationController.swift */; };
-		961A79B61F5FB4A700EFE04B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 961A79B51F5FB4A700EFE04B /* Assets.xcassets */; };
-		961A79BB1F5FB4A700EFE04B /* SpickerWatch.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 961A799E1F5FB4A700EFE04B /* SpickerWatch.app */; };
 		96DAD8711F5D073A00ED0084 /* FirstSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD8701F5D073A00ED0084 /* FirstSettings.swift */; };
 		C4D636AEDE8C15171845626E /* Pods_SpickerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85AF5A019FBFBD32BAA8A967 /* Pods_SpickerTests.framework */; };
 /* End PBXBuildFile section */
@@ -48,41 +40,15 @@
 			remoteGlobalIDString = 17C4D2F71F33664A003F31B1;
 			remoteInfo = Spicker;
 		};
-		961A79AC1F5FB4A700EFE04B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 17C4D2F01F33664A003F31B1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 961A79A91F5FB4A700EFE04B;
-			remoteInfo = "SpickerWatch Extension";
-		};
-		961A79B91F5FB4A700EFE04B /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 17C4D2F01F33664A003F31B1 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 961A799D1F5FB4A700EFE04B;
-			remoteInfo = SpickerWatch;
-		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		961A79BF1F5FB4A700EFE04B /* Embed App Extensions */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 13;
-			files = (
-				961A79AB1F5FB4A700EFE04B /* SpickerWatch Extension.appex in Embed App Extensions */,
-			);
-			name = "Embed App Extensions";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		961A79C31F5FB4A700EFE04B /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
 			dstSubfolderSpec = 16;
 			files = (
-				961A79BB1F5FB4A700EFE04B /* SpickerWatch.app in Embed Watch Content */,
 			);
 			name = "Embed Watch Content";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -115,17 +81,6 @@
 		4F77B48C152948F7B6B3E56F /* Pods-Spicker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Spicker.release.xcconfig"; path = "Pods/Target Support Files/Pods-Spicker/Pods-Spicker.release.xcconfig"; sourceTree = "<group>"; };
 		660CF72E98CD93641B24D299 /* Pods-SpickerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpickerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpickerUITests/Pods-SpickerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		85AF5A019FBFBD32BAA8A967 /* Pods_SpickerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpickerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		961A799E1F5FB4A700EFE04B /* SpickerWatch.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpickerWatch.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		961A79A11F5FB4A700EFE04B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Interface.storyboard; sourceTree = "<group>"; };
-		961A79A31F5FB4A700EFE04B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		961A79A51F5FB4A700EFE04B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		961A79AA1F5FB4A700EFE04B /* SpickerWatch Extension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = "SpickerWatch Extension.appex"; sourceTree = BUILT_PRODUCTS_DIR; };
-		961A79AF1F5FB4A700EFE04B /* InterfaceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InterfaceController.swift; sourceTree = "<group>"; };
-		961A79B11F5FB4A700EFE04B /* ExtensionDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionDelegate.swift; sourceTree = "<group>"; };
-		961A79B31F5FB4A700EFE04B /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
-		961A79B51F5FB4A700EFE04B /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		961A79B71F5FB4A700EFE04B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		961A79B81F5FB4A700EFE04B /* PushNotificationPayload.apns */ = {isa = PBXFileReference; lastKnownFileType = text; path = PushNotificationPayload.apns; sourceTree = "<group>"; };
 		964B29001F53EB1A0013A694 /* Spicker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spicker.entitlements; sourceTree = "<group>"; };
 		96DAD8701F5D073A00ED0084 /* FirstSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstSettings.swift; sourceTree = "<group>"; };
 		96DAE9141F52AECD002B38FA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
@@ -158,13 +113,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		961A79A71F5FB4A700EFE04B /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -175,8 +123,6 @@
 				17C4D2FA1F33664A003F31B1 /* Spicker */,
 				17C4D3121F33664A003F31B1 /* SpickerTests */,
 				17C4D31D1F33664A003F31B1 /* SpickerUITests */,
-				961A799F1F5FB4A700EFE04B /* SpickerWatch */,
-				961A79AE1F5FB4A700EFE04B /* SpickerWatch Extension */,
 				17C4D2F91F33664A003F31B1 /* Products */,
 				4809339831E06AA07E99A194 /* Pods */,
 				E4FF22E051054FD6EED1A1D2 /* Frameworks */,
@@ -189,8 +135,6 @@
 				17C4D2F81F33664A003F31B1 /* Spicker.app */,
 				17C4D30F1F33664A003F31B1 /* SpickerTests.xctest */,
 				17C4D31A1F33664A003F31B1 /* SpickerUITests.xctest */,
-				961A799E1F5FB4A700EFE04B /* SpickerWatch.app */,
-				961A79AA1F5FB4A700EFE04B /* SpickerWatch Extension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -246,29 +190,6 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
-		961A799F1F5FB4A700EFE04B /* SpickerWatch */ = {
-			isa = PBXGroup;
-			children = (
-				961A79A01F5FB4A700EFE04B /* Interface.storyboard */,
-				961A79A31F5FB4A700EFE04B /* Assets.xcassets */,
-				961A79A51F5FB4A700EFE04B /* Info.plist */,
-			);
-			path = SpickerWatch;
-			sourceTree = "<group>";
-		};
-		961A79AE1F5FB4A700EFE04B /* SpickerWatch Extension */ = {
-			isa = PBXGroup;
-			children = (
-				961A79AF1F5FB4A700EFE04B /* InterfaceController.swift */,
-				961A79B11F5FB4A700EFE04B /* ExtensionDelegate.swift */,
-				961A79B31F5FB4A700EFE04B /* NotificationController.swift */,
-				961A79B51F5FB4A700EFE04B /* Assets.xcassets */,
-				961A79B71F5FB4A700EFE04B /* Info.plist */,
-				961A79B81F5FB4A700EFE04B /* PushNotificationPayload.apns */,
-			);
-			path = "SpickerWatch Extension";
-			sourceTree = "<group>";
-		};
 		E4FF22E051054FD6EED1A1D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -297,7 +218,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				961A79BA1F5FB4A700EFE04B /* PBXTargetDependency */,
 			);
 			name = Spicker;
 			productName = Spicker;
@@ -346,40 +266,6 @@
 			productReference = 17C4D31A1F33664A003F31B1 /* SpickerUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
-		961A799D1F5FB4A700EFE04B /* SpickerWatch */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 961A79C01F5FB4A700EFE04B /* Build configuration list for PBXNativeTarget "SpickerWatch" */;
-			buildPhases = (
-				961A799C1F5FB4A700EFE04B /* Resources */,
-				961A79BF1F5FB4A700EFE04B /* Embed App Extensions */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				961A79AD1F5FB4A700EFE04B /* PBXTargetDependency */,
-			);
-			name = SpickerWatch;
-			productName = SpickerWatch;
-			productReference = 961A799E1F5FB4A700EFE04B /* SpickerWatch.app */;
-			productType = "com.apple.product-type.application.watchapp2";
-		};
-		961A79A91F5FB4A700EFE04B /* SpickerWatch Extension */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 961A79BC1F5FB4A700EFE04B /* Build configuration list for PBXNativeTarget "SpickerWatch Extension" */;
-			buildPhases = (
-				961A79A61F5FB4A700EFE04B /* Sources */,
-				961A79A71F5FB4A700EFE04B /* Frameworks */,
-				961A79A81F5FB4A700EFE04B /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-			);
-			name = "SpickerWatch Extension";
-			productName = "SpickerWatch Extension";
-			productReference = 961A79AA1F5FB4A700EFE04B /* SpickerWatch Extension.appex */;
-			productType = "com.apple.product-type.watchkit2-extension";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -413,14 +299,6 @@
 						CreatedOnToolsVersion = 9.0;
 						TestTargetID = 17C4D2F71F33664A003F31B1;
 					};
-					961A799D1F5FB4A700EFE04B = {
-						CreatedOnToolsVersion = 9.0;
-						ProvisioningStyle = Automatic;
-					};
-					961A79A91F5FB4A700EFE04B = {
-						CreatedOnToolsVersion = 9.0;
-						ProvisioningStyle = Automatic;
-					};
 				};
 			};
 			buildConfigurationList = 17C4D2F31F33664A003F31B1 /* Build configuration list for PBXProject "Spicker" */;
@@ -439,8 +317,6 @@
 				17C4D2F71F33664A003F31B1 /* Spicker */,
 				17C4D30E1F33664A003F31B1 /* SpickerTests */,
 				17C4D3191F33664A003F31B1 /* SpickerUITests */,
-				961A799D1F5FB4A700EFE04B /* SpickerWatch */,
-				961A79A91F5FB4A700EFE04B /* SpickerWatch Extension */,
 			);
 		};
 /* End PBXProject section */
@@ -468,23 +344,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		961A799C1F5FB4A700EFE04B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				961A79A41F5FB4A700EFE04B /* Assets.xcassets in Resources */,
-				961A79A21F5FB4A700EFE04B /* Interface.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		961A79A81F5FB4A700EFE04B /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				961A79B61F5FB4A700EFE04B /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -689,16 +548,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		961A79A61F5FB4A700EFE04B /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				961A79B41F5FB4A700EFE04B /* NotificationController.swift in Sources */,
-				961A79B21F5FB4A700EFE04B /* ExtensionDelegate.swift in Sources */,
-				961A79B01F5FB4A700EFE04B /* InterfaceController.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -711,16 +560,6 @@
 			isa = PBXTargetDependency;
 			target = 17C4D2F71F33664A003F31B1 /* Spicker */;
 			targetProxy = 17C4D31B1F33664A003F31B1 /* PBXContainerItemProxy */;
-		};
-		961A79AD1F5FB4A700EFE04B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 961A79A91F5FB4A700EFE04B /* SpickerWatch Extension */;
-			targetProxy = 961A79AC1F5FB4A700EFE04B /* PBXContainerItemProxy */;
-		};
-		961A79BA1F5FB4A700EFE04B /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 961A799D1F5FB4A700EFE04B /* SpickerWatch */;
-			targetProxy = 961A79B91F5FB4A700EFE04B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -739,14 +578,6 @@
 				17C4D3081F33664A003F31B1 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-		961A79A01F5FB4A700EFE04B /* Interface.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				961A79A11F5FB4A700EFE04B /* Base */,
-			);
-			name = Interface.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -967,80 +798,6 @@
 			};
 			name = Release;
 		};
-		961A79BD1F5FB4A700EFE04B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9YN493UFZE;
-				INFOPLIST_FILE = "SpickerWatch Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.akbart.app.spicker.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.0;
-			};
-			name = Debug;
-		};
-		961A79BE1F5FB4A700EFE04B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ASSETCATALOG_COMPILER_COMPLICATION_NAME = Complication;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9YN493UFZE;
-				INFOPLIST_FILE = "SpickerWatch Extension/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @executable_path/../../Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.akbart.app.spicker.watchkitapp.watchkitextension;
-				PRODUCT_NAME = "${TARGET_NAME}";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.0;
-			};
-			name = Release;
-		};
-		961A79C11F5FB4A700EFE04B /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9YN493UFZE;
-				IBSC_MODULE = SpickerWatch_Extension;
-				INFOPLIST_FILE = SpickerWatch/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akbart.app.spicker.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.0;
-			};
-			name = Debug;
-		};
-		961A79C21F5FB4A700EFE04B /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9YN493UFZE;
-				IBSC_MODULE = SpickerWatch_Extension;
-				INFOPLIST_FILE = SpickerWatch/Info.plist;
-				PRODUCT_BUNDLE_IDENTIFIER = com.akbart.app.spicker.watchkitapp;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = watchos;
-				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = 4;
-				WATCHOS_DEPLOYMENT_TARGET = 4.0;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1076,24 +833,6 @@
 			buildConfigurations = (
 				17C4D32A1F33664A003F31B1 /* Debug */,
 				17C4D32B1F33664A003F31B1 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		961A79BC1F5FB4A700EFE04B /* Build configuration list for PBXNativeTarget "SpickerWatch Extension" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				961A79BD1F5FB4A700EFE04B /* Debug */,
-				961A79BE1F5FB4A700EFE04B /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		961A79C01F5FB4A700EFE04B /* Build configuration list for PBXNativeTarget "SpickerWatch" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				961A79C11F5FB4A700EFE04B /* Debug */,
-				961A79C21F5FB4A700EFE04B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

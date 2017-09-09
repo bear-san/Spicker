@@ -101,11 +101,27 @@ class CreateViewController : UIViewController {
         }
     }
     @IBAction func Register(_ sender: Any) { //データ登録
+        Priority_box.endEditing(true)
+        TaskName_box.endEditing(true)
+        
+        let notificationTimeInUNIX = NotificationTime.date.timeIntervalSince1970 + 32400
+        
+        var isNotification_Local = false
+        if dontnotification.isOn == true{
+            isNotification_Local = true
+        }else{
+            isNotification_Local = false
+        }
+        
+        DataAdd(Name: TaskName_box.text!, Priority: Priority_box.text!, isNotification: isNotification_Local, notificationTime: notificationTimeInUNIX)
+        
+        Priority_box.text = ""
+        TaskName_box.text = ""
+    }
+    func DataAdd(Name:String,Priority:String,isNotification:Bool,notificationTime:Double){
         
         var isCanRegister = false
         
-        Priority_box.endEditing(true)
-        TaskName_box.endEditing(true)
         print("処理に入りました")
         NotificationTime.locale = Locale(identifier: "ja-JP")
         let notificationTimeInJSTfrom1970 = NotificationTime.date.timeIntervalSince1970 + 32400
@@ -113,10 +129,10 @@ class CreateViewController : UIViewController {
         let WantFireNotificationTime = Double(Int(notificationTimeInJSTfrom1970) - NowTimeInUNIX - 32400)
         print("通知時間：\(WantFireNotificationTime)秒後")
         
-        if dontnotification.isOn == true{
+        if isNotification == true{
             isCanRegister = true
         }else{
-            if WantFireNotificationTime <= 0 {
+            if notificationTime <= 0 {
                 let alert = UIAlertController(title: "エラー",message: "時間は未来の時間を選択してください", preferredStyle: .alert)
                 let OKbutton = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
                     isCanRegister = false
@@ -129,25 +145,15 @@ class CreateViewController : UIViewController {
             }
         }
         
-        
-        
-        
         if isCanRegister == true{
             let database = try! Realm()
             let regiTask = Task()
             var CurrentPriority = database.objects(Task.self).sorted(byKeyPath: "priority", ascending: true) //優先度でソート（昇順）
             var CurrentID = database.objects(Task.self).sorted(byProperty: "ID", ascending: false) //IDでソート（降順）
-            /*if Priority_box.text != nil{
-                print("優先度は入力されています")
-            }else{
-                print("優先度が入力されていないため、優先度を最大の優先度とします")
-                Priority_box.text =
-            }*/
-            
             let newestID = CurrentID.first?.ID //IDを降順でソートした時、現在登録されているIDの最大値
             let maxiumPriority = CurrentPriority.last?.priority //優先度を昇順でソートしたとき、現在登録されている優先度で最も低いもの（＝数字が大きいもの）
-            if Priority_box.text != ""{
-                regiTask.priority = Int(Priority_box.text!)!
+            if Priority != ""{
+                regiTask.priority = Int(Priority)!
             }else{
                 if maxiumPriority != nil{
                     regiTask.priority = maxiumPriority! + 1 //優先度が入力されていない場合は優先度を最も低い値にする
@@ -207,7 +213,7 @@ class CreateViewController : UIViewController {
             
             
             
-            regiTask.TaskName = TaskName_box.text!
+            regiTask.TaskName = Name
             regiTask.NotificationTime = Int(notificationTimeInJSTfrom1970)
             
             //task.NotificationTime -> UNIX時間と指定時刻の変換を出来るようになったら作成
@@ -249,7 +255,7 @@ class CreateViewController : UIViewController {
             
             //Int型で現在時刻を取得
             
-            if dontnotification.isOn == false{
+            if isNotification == false{
                 let notification_left_time = Date.init(timeIntervalSinceNow: notificationTimeInJSTfrom1970)
                 let notification = UNMutableNotificationContent()
                 notification.title = "TodayHaveToDo"
@@ -263,8 +269,7 @@ class CreateViewController : UIViewController {
                 print("全ての登録処理が完了しました")
                 
             }
-            Priority_box.text = ""
-            TaskName_box.text = ""
+            
             let AfterData = try! Realm()
             CurrentPriority = AfterData.objects(Task.self).sorted(byProperty: "priority", ascending: false)
             self.tabBarController?.selectedIndex = 0;
@@ -272,7 +277,6 @@ class CreateViewController : UIViewController {
         }else{
             print("エラー")
         }
-        
     }
     
     func DataDeletePerDay(dataKeyPriority :Int) -> String{
