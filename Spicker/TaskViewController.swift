@@ -110,9 +110,20 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
         return ""
     }
     
-    /*func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        print("セル番号：\(indexPath.row) セルの内容：\(ap.tasks[indexPath.row])")
-    }*/
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if ap.tasks.count >= 1{
+            print("セル番号：\(indexPath.row) セルの内容：\(ap.tasks[indexPath.row])")
+            let database = try! Realm()
+            ap.currentData_Name = database.objects(Task.self)[indexPath.row].TaskName
+            ap.currentData_Prioroty = database.objects(Task.self)[indexPath.row].priority
+            ap.currentData_notificationTime = database.objects(Task.self)[indexPath.row].NotificationTime
+            ap.currentData_isNotification = database.objects(Task.self)[indexPath.row].isNotification
+            
+            let storyboard: UIStoryboard = self.storyboard!
+            let nextView = storyboard.instantiateViewController(withIdentifier: "EditView") as! EditViewController
+            self.present(nextView, animated: true, completion: nil)
+        }
+    }
     
     func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
         

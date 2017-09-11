@@ -22,6 +22,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     var tasks = [String]()
     
+    var currentData_Name:String? = nil
+    var currentData_Prioroty:Int? = nil
+    var currentData_isNotification:Bool? = nil
+    var currentData_notificationTime:Int? = nil
+    
     var isDataDeleted = false
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {

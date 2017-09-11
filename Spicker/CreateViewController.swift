@@ -29,6 +29,7 @@ class Task: Object { //Realmで使うオブジェクト定義
     @objc dynamic var priority = 0 //優先度
     @objc dynamic var TaskName = "" //タスク名
     @objc dynamic var NotificationTime = 0 //通知時間 UNIX時間で管理
+    @objc dynamic var isNotification = true //通知を行うか（基本はtrue）
     @objc dynamic var hasFinished = false //タスクが完了しているか（追加時点で既に終わっているわけないので基本はfalse）
 }
 
@@ -215,6 +216,7 @@ class CreateViewController : UIViewController {
             
             regiTask.TaskName = Name
             regiTask.NotificationTime = Int(notificationTimeInJSTfrom1970)
+            regiTask.isNotification = isNotification
             
             //task.NotificationTime -> UNIX時間と指定時刻の変換を出来るようになったら作成
             try! database.write { //realmに保存

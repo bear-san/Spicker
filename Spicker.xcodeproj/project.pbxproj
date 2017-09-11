@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A77023E1F663AE2001A258E /* EditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0A77023D1F663AE2001A258E /* EditViewController.swift */; };
 		1710B9911F337CE700DDD2B3 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1710B9901F337CE700DDD2B3 /* CreateViewController.swift */; };
 		1710B9931F337CF300DDD2B3 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1710B9921F337CF300DDD2B3 /* TaskViewController.swift */; };
 		1710B9951F337CFE00DDD2B3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1710B9941F337CFE00DDD2B3 /* SettingsViewController.swift */; };
@@ -55,6 +56,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0A77023D1F663AE2001A258E /* EditViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditViewController.swift; sourceTree = "<group>"; };
 		1710B9901F337CE700DDD2B3 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		1710B9921F337CF300DDD2B3 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		1710B9941F337CFE00DDD2B3 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
@@ -144,6 +146,7 @@
 				17C4D2FB1F33664A003F31B1 /* AppDelegate.swift */,
 				17C4D2FD1F33664A003F31B1 /* ViewController.swift */,
 				17C4D2FF1F33664A003F31B1 /* Main.storyboard */,
+				0A77023D1F663AE2001A258E /* EditViewController.swift */,
 				96DAD8701F5D073A00ED0084 /* FirstSettings.swift */,
 				17C4D3051F33664A003F31B1 /* Assets.xcassets */,
 				17C4D3071F33664A003F31B1 /* LaunchScreen.storyboard */,
@@ -518,6 +521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0A77023E1F663AE2001A258E /* EditViewController.swift in Sources */,
 				1710B9911F337CE700DDD2B3 /* CreateViewController.swift in Sources */,
 				17C4D3041F33664A003F31B1 /* Spicker.xcdatamodeld in Sources */,
 				1710B9931F337CF300DDD2B3 /* TaskViewController.swift in Sources */,
