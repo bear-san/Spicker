@@ -30,7 +30,7 @@ class EditViewController: UIViewController {
         //表示された時の処理を記述
         Priority.text = String(describing:ap.currentData_Prioroty!)
         TaskName.text = ap.currentData_Name!
-        let notificationTime_UNIX = ap.currentData_notificationTime! - 3600*9
+        let notificationTime_UNIX = ap.currentData_notificationTime!
         print(notificationTime_UNIX)
         let notificationTime_Date = Date.init(timeIntervalSince1970: TimeInterval(notificationTime_UNIX))
         notificationTime.date = notificationTime_Date
@@ -57,11 +57,13 @@ class EditViewController: UIViewController {
         if isCanRegist == true{
             let createAndDelete = CreateViewController()
             self.newName = self.TaskName.text!
+            let currentPriorityKey = ap.currentData_Prioroty! - 1
+            print(currentPriorityKey)
             self.newPriority = String(describing:Int(self.Priority.text!)!-1)
             let newNotificationTime_Date = self.notificationTime.date
             let newNotificationTime_UNIX = newNotificationTime_Date.timeIntervalSince1970
             self.newnotificationTime = newNotificationTime_UNIX
-            createAndDelete.DataDeletePerDay(dataKeyPriority: self.currentPriority)
+            createAndDelete.DataDeletePerDay(dataKeyPriority: currentPriorityKey)
             createAndDelete.DataAdd(Name: self.newName, Priority: self.newPriority, isNotification: self.isNotification.isOn, notificationTime: self.newnotificationTime)
         }
         

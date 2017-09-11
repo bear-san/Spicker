@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import SwiftyJSON
 import RealmSwift
+import ChameleonFramework
 
 class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDataSource, UITabBarDelegate {
     @IBOutlet weak var Bar: UINavigationBar!
@@ -118,7 +119,7 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
             ap.currentData_Prioroty = database.objects(Task.self)[indexPath.row].priority
             ap.currentData_notificationTime = database.objects(Task.self)[indexPath.row].NotificationTime
             ap.currentData_isNotification = database.objects(Task.self)[indexPath.row].isNotification
-            
+            tableView.deselectRow(at: indexPath, animated: true)
             let storyboard: UIStoryboard = self.storyboard!
             let nextView = storyboard.instantiateViewController(withIdentifier: "EditView") as! EditViewController
             self.present(nextView, animated: true, completion: nil)
@@ -133,8 +134,9 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
             let DataMethod = CreateViewController()
             DataMethod.DataDeletePerDay(dataKeyPriority: indexPath.row)
             self.RenewHowMany()
+            
         }
-        deleteButton.backgroundColor = UIColor.blue
+        deleteButton.backgroundColor = FlatSkyBlue()
         
         return [deleteButton]
     }

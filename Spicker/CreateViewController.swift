@@ -105,7 +105,7 @@ class CreateViewController : UIViewController {
         Priority_box.endEditing(true)
         TaskName_box.endEditing(true)
         
-        let notificationTimeInUNIX = NotificationTime.date.timeIntervalSince1970 + 32400
+        let notificationTimeInUNIX = NotificationTime.date.timeIntervalSince1970
         
         var isNotification_Local = false
         if dontnotification.isOn == true{
@@ -124,10 +124,10 @@ class CreateViewController : UIViewController {
         var isCanRegister = false
         
         print("処理に入りました")
-        NotificationTime.locale = Locale(identifier: "ja-JP")
-        let notificationTimeInJSTfrom1970 = NotificationTime.date.timeIntervalSince1970 + 32400
+        let notificationTimeInJSTfrom1970 = notificationTime
+        print("通知時間：\(notificationTimeInJSTfrom1970)")
         let NowTimeInUNIX = Int(Date().timeIntervalSince1970)
-        let WantFireNotificationTime = Double(Int(notificationTimeInJSTfrom1970) - NowTimeInUNIX - 32400)
+        let WantFireNotificationTime = Double(Int(notificationTimeInJSTfrom1970) - NowTimeInUNIX)
         print("通知時間：\(WantFireNotificationTime)秒後")
         
         if isNotification == true{
@@ -290,7 +290,8 @@ class CreateViewController : UIViewController {
         let deleteData = OldData[dataKeyPriority]
         let center = UNUserNotificationCenter.current()
         center.removePendingNotificationRequests(withIdentifiers: ["Spicker_\(deleteData.TaskName)"])
-        for i in 0...OldData.count-1{
+        let dataNum = OldData.count - 1
+        for i in 0...dataNum{
             if OldData[i].priority >= deleteData.priority{
                 try! OldDataBase.write() {
                     OldData[i].priority -= 1
