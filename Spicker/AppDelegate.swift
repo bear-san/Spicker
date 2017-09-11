@@ -269,10 +269,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void) {
-        print("通知ｷﾀ━━━━(ﾟ∀ﾟ)━━━━!!")
-        
-    }
 
 }
 

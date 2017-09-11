@@ -32,3 +32,16 @@ TaskViewでは、今日やるべきことを一覧にして表示します
 ・RealmSwift・・・データベース、タスクや権限情報の記録に使用
 
 ・NCMB・・・nifty Mobile Backendにデータを送信する際に使用
+
+## 各ソースファイルの役割など
+・AppDelegate.swift -> 起動時の処理／表示している画面にかかわらず実行されるプログラム
+
+・FirstSettings.swift -> 初期設定が必要な場合の初期設定（設定データへの書き込み）を管理
+
+・Main.storyboard -> アプリのUIを管理
+
+・CreateViewController -> データの新規追加／削除を管理（他のプログラムから呼び出しできるよう関数にしている）
+
+・TaskViewController -> タスクのデータ読み込み、一覧の表示を管理
+
+・SettingsViewController -> 設定情報の書き換え、お知らせの表示を管理

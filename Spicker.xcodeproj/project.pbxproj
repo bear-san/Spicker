@@ -10,7 +10,6 @@
 		1710B9911F337CE700DDD2B3 /* CreateViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1710B9901F337CE700DDD2B3 /* CreateViewController.swift */; };
 		1710B9931F337CF300DDD2B3 /* TaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1710B9921F337CF300DDD2B3 /* TaskViewController.swift */; };
 		1710B9951F337CFE00DDD2B3 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1710B9941F337CFE00DDD2B3 /* SettingsViewController.swift */; };
-		173DA0B31F382A5A007075FC /* example.json in Resources */ = {isa = PBXBuildFile; fileRef = 173DA0B21F382A5A007075FC /* example.json */; };
 		17C4D2FC1F33664A003F31B1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C4D2FB1F33664A003F31B1 /* AppDelegate.swift */; };
 		17C4D2FE1F33664A003F31B1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C4D2FD1F33664A003F31B1 /* ViewController.swift */; };
 		17C4D3011F33664A003F31B1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17C4D2FF1F33664A003F31B1 /* Main.storyboard */; };
@@ -59,7 +58,6 @@
 		1710B9901F337CE700DDD2B3 /* CreateViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CreateViewController.swift; sourceTree = "<group>"; };
 		1710B9921F337CF300DDD2B3 /* TaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewController.swift; sourceTree = "<group>"; };
 		1710B9941F337CFE00DDD2B3 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
-		173DA0B21F382A5A007075FC /* example.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = example.json; sourceTree = "<group>"; };
 		17C4D2F81F33664A003F31B1 /* Spicker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spicker.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		17C4D2FB1F33664A003F31B1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		17C4D2FD1F33664A003F31B1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -154,7 +152,6 @@
 				1710B9901F337CE700DDD2B3 /* CreateViewController.swift */,
 				1710B9921F337CF300DDD2B3 /* TaskViewController.swift */,
 				1710B9941F337CFE00DDD2B3 /* SettingsViewController.swift */,
-				173DA0B21F382A5A007075FC /* example.json */,
 			);
 			path = Spicker;
 			sourceTree = "<group>";
@@ -326,7 +323,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				173DA0B31F382A5A007075FC /* example.json in Resources */,
 				17C4D3091F33664A003F31B1 /* LaunchScreen.storyboard in Resources */,
 				17C4D3061F33664A003F31B1 /* Assets.xcassets in Resources */,
 				17C4D3011F33664A003F31B1 /* Main.storyboard in Resources */,
