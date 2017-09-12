@@ -124,8 +124,19 @@ class CreateViewController : UIViewController {
         var isCanRegister = false
         
         print("処理に入りました")
-        let notificationTimeInJSTfrom1970 = notificationTime
+        var notificationTimeInJSTfrom1970 = notificationTime
         print("通知時間：\(notificationTimeInJSTfrom1970)")
+        
+        let nt_date = Date.init(timeIntervalSince1970: TimeInterval(notificationTime))
+        let format = DateFormatter()
+        format.dateFormat = "YYYY-mm-dd"
+        let nt_date_str = format.string(from: nt_date)
+        let wt_date = Date.init(timeIntervalSince1970: TimeInterval(Date().timeIntervalSince1970))
+        let wt_date_str = format.string(from: wt_date)
+        if nt_date_str != wt_date_str{
+            //日付が一致しない場合の処理
+            notificationTimeInJSTfrom1970 += 86400
+        }
         let NowTimeInUNIX = Int(Date().timeIntervalSince1970)
         let WantFireNotificationTime = Double(Int(notificationTimeInJSTfrom1970) - NowTimeInUNIX)
         print("通知時間：\(WantFireNotificationTime)秒後")
