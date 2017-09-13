@@ -39,7 +39,7 @@ class EditViewController: UIViewController {
         if ap.currentData_isNotification == true{
             isNotification.setOn(true, animated: true)
         }else{
-            isNotification.setOn(true, animated: true)
+            isNotification.setOn(false, animated: true)
         }
         self.currentPriority = ap.currentData_Prioroty!
     }

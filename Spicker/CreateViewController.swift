@@ -282,7 +282,7 @@ class CreateViewController : UIViewController {
                 notification.body = "\(regiTask.TaskName)は終わった？？"
                 notification.sound = UNNotificationSound.default()
                 let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: WantFireNotificationTime, repeats: false)
-                let request = UNNotificationRequest.init(identifier: "Spicker_\(regiTask.TaskName)", content: notification, trigger: trigger)
+                let request = UNNotificationRequest.init(identifier: "Spicker_\(regiTask.ID)_\(regiTask.TaskName)", content: notification, trigger: trigger)
                 let center = UNUserNotificationCenter.current()
                 center.add(request)
                 
@@ -307,7 +307,8 @@ class CreateViewController : UIViewController {
     
         let deleteData = OldData[dataKeyPriority]
         let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: ["Spicker_\(deleteData.TaskName)"])
+        center.removePendingNotificationRequests(withIdentifiers: ["Spicker_\(deleteData.ID)_\(deleteData.TaskName)"])
+        center.removeDeliveredNotifications(withIdentifiers: ["Spicker_\(deleteData.ID)_\(deleteData.TaskName)"])
         let dataNum = OldData.count - 1
         for i in 0...dataNum{
             if OldData[i].priority >= deleteData.priority{

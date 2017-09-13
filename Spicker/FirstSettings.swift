@@ -9,6 +9,8 @@
 import Foundation
 import UIKit
 import RealmSwift
+import UserNotifications
+import NotificationCenter
 
 
 class FirstSettingsController: UIViewController,UIPickerViewDelegate,UIPickerViewDataSource{
@@ -76,7 +78,8 @@ class FirstSettingsController: UIViewController,UIPickerViewDelegate,UIPickerVie
         if Int(today.timeIntervalSince1970) >= newDateUNIX{ //指定時間を既に過ぎている場合はNextTimeに１日プラス（今日は実行しない）
             newDateUNIX += 3600*24
         }
-        print(newDateUNIX)
+        print("現在時間：\(today.timeIntervalSince1970)")
+        print("締め時間：\(newDateUNIX)")
         var isToday = false
         if todayOrTom.selectedRow(inComponent: 0) == 0{
             isToday = false
@@ -89,6 +92,17 @@ class FirstSettingsController: UIViewController,UIPickerViewDelegate,UIPickerVie
             PermitData[0].CloseTask = newDateUNIX
             PermitData[0].isToday = isToday
         }
+        
+        let notification = UNMutableNotificationContent()
+        
+        let WantFireNotificationTime = TimeInterval(newDateUNIX) - Date().timeIntervalSince1970
+        notification.title = "タスクは全部終わった？"
+        notification.body = "早速次の日の予定を追加しましょう！"
+        notification.sound = UNNotificationSound.default()
+        let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: WantFireNotificationTime, repeats: false)
+        let request = UNNotificationRequest.init(identifier: "Spicker_Daily", content: notification, trigger: trigger)
+        let center = UNUserNotificationCenter.current()
+        center.add(request)
         
         let storyboard: UIStoryboard = self.storyboard!
         let nextView = storyboard.instantiateViewController(withIdentifier: "OtherSettings") as! FirstSettingsController

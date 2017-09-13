@@ -79,49 +79,63 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                 data.add(AddData)
             }
         }else{
-            
             print("初回起動じゃなくても呼ばれるアプリ起動時の処理だよ")
-        }
-        let data = try! Realm()
-        let BaseData = data.objects(Task.self).sorted(byKeyPath: "priority", ascending: true)
-        
-        if BaseData.count == 0{
-
-        }else{
-            for i in 0...BaseData.count-1 {
-                self.tasks.append(BaseData[i].TaskName)
+            let data = try! Realm()
+            let BaseData = data.objects(Task.self).sorted(byKeyPath: "priority", ascending: true)
+            
+            if BaseData.count == 0{
+                
+            }else{
+                for i in 0...BaseData.count-1 {
+                    self.tasks.append(BaseData[i].TaskName)
+                }
+                
+                print(tasks)
             }
             
-            print(tasks)
-        }
-        
-        let date = Date()
-        let dateInUNIX = Int(date.timeIntervalSince1970)
-        
-        let database = try! Realm()
-        let metaData = database.objects(AppMetaData.self).sorted(byKeyPath: "ID", ascending: false)
-        
-        if dateInUNIX >= (metaData.first?.CloseTask)!{
-            print("登録されているデータは古いものです！")
-            let currentData = database.objects(Task.self).sorted(byKeyPath: "ID", ascending: true)
-            if currentData.count >= 1{
-                var LastData = currentData.count - 1
-                for z in 0...LastData{
-                    try! database.write() {
-                        print("削除するデータ：\(currentData[0])")
-                        database.delete(currentData[0])
+            let date = Date()
+            let dateInUNIX = Int(date.timeIntervalSince1970)
+            
+            let database = try! Realm()
+            let metaData = database.objects(AppMetaData.self).sorted(byKeyPath: "ID", ascending: false)
+            
+            if dateInUNIX >= (metaData.first?.CloseTask)!{
+                print("登録されているデータは古いものです！")
+                let currentData = database.objects(Task.self).sorted(byKeyPath: "ID", ascending: true)
+                if currentData.count >= 1{
+                    var LastData = currentData.count - 1
+                    for z in 0...LastData{
+                        try! database.write() {
+                            print("削除するデータ：\(currentData[0])")
+                            database.delete(currentData[0])
+                        }
                     }
+                    
                 }
-
+                try! database.write() {
+                    metaData.first?.CloseTask += 3600*24
+                }
+                let center = UNUserNotificationCenter.current()
+                center.removeAllDeliveredNotifications()
+                
+                let notification = UNMutableNotificationContent()
+                
+                let WantFireNotificationTime = TimeInterval((metaData.first?.CloseTask)! - Int(Date().timeIntervalSince1970))
+                print(WantFireNotificationTime)
+                notification.title = "タスクは全部終わった？"
+                notification.body = "早速次の日の予定を追加しましょう！"
+                notification.sound = UNNotificationSound.default()
+                let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: WantFireNotificationTime, repeats: false)
+                let request = UNNotificationRequest.init(identifier: "Spicker_Daily", content: notification, trigger: trigger)
+                center.add(request)
+                
+                return true
+            }else{
+                print("登録されているデータは今日のものです")
+                return true
             }
-            try! database.write() {
-                metaData.first?.CloseTask += 3600*24
-            }
-            return true
-        }else{
-            print("登録されているデータは今日のものです")
-            return true
         }
+        return true
     }
     
     
@@ -148,7 +162,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         let metaData = database.objects(AppMetaData.self).sorted(byKeyPath: "ID", ascending: false)
         
         if dateInUNIX >= (metaData.first?.CloseTask)!{
-            print("登録されているデータは古いものです！")
+            //print("登録されているデータは古いものです！")
             let currentData = database.objects(Task.self).sorted(byKeyPath: "ID", ascending: true)
             if currentData.count >= 1{
                 var LastData = currentData.count - 1
@@ -163,6 +177,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
             try! database.write() {
                 metaData.first?.CloseTask += 3600*24
             }
+            
+            let center = UNUserNotificationCenter.current()
+            center.removeAllDeliveredNotifications()
+            
+            let notification = UNMutableNotificationContent()
+            
+            let WantFireNotificationTime = TimeInterval((metaData.first?.CloseTask)! - Int(Date().timeIntervalSince1970))
+            notification.title = "タスクは全部終わった？"
+            notification.body = "早速次の日の予定を追加しましょう！"
+            notification.sound = UNNotificationSound.default()
+            let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: WantFireNotificationTime, repeats: false)
+            let request = UNNotificationRequest.init(identifier: "Spicker_Daily", content: notification, trigger: trigger)
+            center.add(request)
+            
         }else{
             print("登録されているデータは今日のものです")
         }
