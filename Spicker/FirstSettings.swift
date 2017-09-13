@@ -38,6 +38,10 @@ class FirstSettingsController: UIViewController,UIPickerViewDelegate,UIPickerVie
             self.todayOrTom.dataSource = self
             self.todayOrTom.delegate = self
         }
+        let statusBar = UIView(frame:CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 20.0))
+        statusBar.backgroundColor = UIColor.flatTeal
+        
+        view.addSubview(statusBar)
         
     }
     

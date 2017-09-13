@@ -22,6 +22,11 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
 
     override func viewDidLoad(){
         super.viewDidLoad()
+        let statusBar = UIView(frame:CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 20.0))
+        statusBar.backgroundColor = UIColor.flatTeal
+        
+        view.addSubview(statusBar)
+
         let data = try! Realm()
         let PermitData = data.objects(AppMetaData.self).sorted(byKeyPath: "ID", ascending: false)
         

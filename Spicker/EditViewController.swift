@@ -8,8 +8,6 @@
 
 import Foundation
 import UIKit
-import RealmSwift
-import NCMB
 
 class EditViewController: UIViewController {
     let ap = UIApplication.shared.delegate as! AppDelegate
@@ -27,6 +25,10 @@ class EditViewController: UIViewController {
 
     override func viewDidLoad(){
         super.viewDidLoad()
+        let statusBar = UIView(frame:CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 20.0))
+        statusBar.backgroundColor = UIColor.flatTeal
+        
+        view.addSubview(statusBar)
         //表示された時の処理を記述
         Priority.text = String(describing:ap.currentData_Prioroty!)
         TaskName.text = ap.currentData_Name!

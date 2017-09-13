@@ -21,6 +21,16 @@
 		17C4D31F1F33664A003F31B1 /* SpickerUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17C4D31E1F33664A003F31B1 /* SpickerUITests.swift */; };
 		227A0A77E9B23F106C13C3CE /* Pods_SpickerUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2E9CE8300EB81EF5CA76344C /* Pods_SpickerUITests.framework */; };
 		86B3B1CE595891FD52725FB6 /* Pods_Spicker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1C6B5E26A59A3E95F6B3F0A7 /* Pods_Spicker.framework */; };
+		9659D6C71F67B0A600410303 /* Alamofire.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9659D6C81F67B0A600410303 /* Alamofire.framework */; };
+		9659D6C91F67B0AB00410303 /* ChameleonFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9659D6CA1F67B0AB00410303 /* ChameleonFramework.framework */; };
+		9659D6CB1F67B0AF00410303 /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9659D6CC1F67B0AF00410303 /* RealmSwift.framework */; };
+		9659D6CD1F67B0B300410303 /* SwiftyJSON.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9659D6CE1F67B0B300410303 /* SwiftyJSON.framework */; };
+		9659D6CF1F67B0B900410303 /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9659D6D01F67B0B900410303 /* Realm.framework */; };
+		9659D6D11F67B0C000410303 /* NCMB.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9659D6D21F67B0C000410303 /* NCMB.framework */; };
+		9659D6D31F67B3D300410303 /* FlatUIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9659D6D91F67B3D300410303 /* FlatUIKit.framework */; };
+		9659D6D41F67B3D300410303 /* FoldingTabBar.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9659D6DA1F67B3D300410303 /* FoldingTabBar.framework */; };
+		9659D6D51F67B3D300410303 /* MMPopLabel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9659D6DB1F67B3D300410303 /* MMPopLabel.framework */; };
+		9659D6D81F67B3D300410303 /* TextFieldEffects.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9659D6DE1F67B3D300410303 /* TextFieldEffects.framework */; };
 		96DAD8711F5D073A00ED0084 /* FirstSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 96DAD8701F5D073A00ED0084 /* FirstSettings.swift */; };
 		C4D636AEDE8C15171845626E /* Pods_SpickerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85AF5A019FBFBD32BAA8A967 /* Pods_SpickerTests.framework */; };
 /* End PBXBuildFile section */
@@ -82,6 +92,18 @@
 		660CF72E98CD93641B24D299 /* Pods-SpickerUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SpickerUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SpickerUITests/Pods-SpickerUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		85AF5A019FBFBD32BAA8A967 /* Pods_SpickerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SpickerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		964B29001F53EB1A0013A694 /* Spicker.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Spicker.entitlements; sourceTree = "<group>"; };
+		9659D6C81F67B0A600410303 /* Alamofire.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Alamofire.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9659D6CA1F67B0AB00410303 /* ChameleonFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = ChameleonFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9659D6CC1F67B0AF00410303 /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9659D6CE1F67B0B300410303 /* SwiftyJSON.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = SwiftyJSON.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9659D6D01F67B0B900410303 /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9659D6D21F67B0C000410303 /* NCMB.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = NCMB.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9659D6D91F67B3D300410303 /* FlatUIKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FlatUIKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9659D6DA1F67B3D300410303 /* FoldingTabBar.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = FoldingTabBar.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9659D6DB1F67B3D300410303 /* MMPopLabel.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MMPopLabel.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9659D6DC1F67B3D300410303 /* Pods_SpickerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_SpickerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9659D6DD1F67B3D300410303 /* Pods_SpickerUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Pods_SpickerUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9659D6DE1F67B3D300410303 /* TextFieldEffects.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = TextFieldEffects.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96DAD8701F5D073A00ED0084 /* FirstSettings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirstSettings.swift; sourceTree = "<group>"; };
 		96DAE9141F52AECD002B38FA /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		96ED529F1F676BF00000C1F7 /* icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = icon.png; sourceTree = "<group>"; };
@@ -94,6 +116,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9659D6D31F67B3D300410303 /* FlatUIKit.framework in Frameworks */,
+				9659D6D41F67B3D300410303 /* FoldingTabBar.framework in Frameworks */,
+				9659D6D51F67B3D300410303 /* MMPopLabel.framework in Frameworks */,
+				9659D6D81F67B3D300410303 /* TextFieldEffects.framework in Frameworks */,
+				9659D6D11F67B0C000410303 /* NCMB.framework in Frameworks */,
+				9659D6CF1F67B0B900410303 /* Realm.framework in Frameworks */,
+				9659D6CD1F67B0B300410303 /* SwiftyJSON.framework in Frameworks */,
+				9659D6CB1F67B0AF00410303 /* RealmSwift.framework in Frameworks */,
+				9659D6C91F67B0AB00410303 /* ChameleonFramework.framework in Frameworks */,
+				9659D6C71F67B0A600410303 /* Alamofire.framework in Frameworks */,
 				86B3B1CE595891FD52725FB6 /* Pods_Spicker.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -195,6 +227,18 @@
 		E4FF22E051054FD6EED1A1D2 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9659D6D91F67B3D300410303 /* FlatUIKit.framework */,
+				9659D6DA1F67B3D300410303 /* FoldingTabBar.framework */,
+				9659D6DB1F67B3D300410303 /* MMPopLabel.framework */,
+				9659D6DC1F67B3D300410303 /* Pods_SpickerTests.framework */,
+				9659D6DD1F67B3D300410303 /* Pods_SpickerUITests.framework */,
+				9659D6DE1F67B3D300410303 /* TextFieldEffects.framework */,
+				9659D6D21F67B0C000410303 /* NCMB.framework */,
+				9659D6D01F67B0B900410303 /* Realm.framework */,
+				9659D6CE1F67B0B300410303 /* SwiftyJSON.framework */,
+				9659D6CC1F67B0AF00410303 /* RealmSwift.framework */,
+				9659D6CA1F67B0AB00410303 /* ChameleonFramework.framework */,
+				9659D6C81F67B0A600410303 /* Alamofire.framework */,
 				1C6B5E26A59A3E95F6B3F0A7 /* Pods_Spicker.framework */,
 				85AF5A019FBFBD32BAA8A967 /* Pods_SpickerTests.framework */,
 				2E9CE8300EB81EF5CA76344C /* Pods_SpickerUITests.framework */,
@@ -686,6 +730,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
@@ -696,6 +741,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 25F99AD050C9E987EEBC1A8A /* Pods-Spicker.debug.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Spicker/Spicker.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
@@ -716,6 +763,8 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4F77B48C152948F7B6B3E56F /* Pods-Spicker.release.xcconfig */;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-2";
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_ENTITLEMENTS = Spicker/Spicker.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;

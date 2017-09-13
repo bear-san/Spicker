@@ -49,6 +49,11 @@ class CreateViewController : UIViewController {
         
         //let PermitDataLocal = AppMetaData()
         permitCreate()
+        let statusBar = UIView(frame:CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 20.0))
+        statusBar.backgroundColor = UIColor.flatTeal
+        
+        view.addSubview(statusBar)
+
         
         
     }
@@ -129,17 +134,19 @@ class CreateViewController : UIViewController {
         
         let nt_date = Date.init(timeIntervalSince1970: TimeInterval(notificationTime))
         let format = DateFormatter()
-        format.dateFormat = "YYYY-mm-dd"
+        format.dateFormat = "yyyy-MM-dd"
         let nt_date_str = format.string(from: nt_date)
         let wt_date = Date.init(timeIntervalSince1970: TimeInterval(Date().timeIntervalSince1970))
         let wt_date_str = format.string(from: wt_date)
+        print("\(nt_date_str):\(wt_date_str)")
         if nt_date_str != wt_date_str{
             //日付が一致しない場合の処理
+            print("日付が一致しません！")
             notificationTimeInJSTfrom1970 += 86400
         }
-        let NowTimeInUNIX = Int(Date().timeIntervalSince1970)
-        let WantFireNotificationTime = Double(Int(notificationTimeInJSTfrom1970) - NowTimeInUNIX)
-        print("通知時間：\(WantFireNotificationTime)秒後")
+        let NowTimeInUNIX = Date().timeIntervalSince1970
+        let WantFireNotificationTime = notificationTimeInJSTfrom1970-NowTimeInUNIX
+        print("現在時刻：\(NowTimeInUNIX),通知時間：\(WantFireNotificationTime)秒後")
         
         if isNotification == true{
             isCanRegister = true
