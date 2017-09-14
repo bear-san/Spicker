@@ -22,7 +22,7 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
 
     override func viewDidLoad(){
         super.viewDidLoad()
-        let statusBar = UIView(frame:CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 20.0))
+        let statusBar = UIView(frame:CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 20.0)) //ステータスバーの位置にUINavigationBarと同じ色を配置
         statusBar.backgroundColor = UIColor.flatTeal
         
         view.addSubview(statusBar)
@@ -38,7 +38,7 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
         cellTableView.delegate = self
         self.cellTableView.reloadData()
         
-        self.refreshControl = UIRefreshControl()
+        self.refreshControl = UIRefreshControl() //上から下に引っ張ってできる動作を作成
         self.refreshControl.attributedTitle = NSAttributedString(string: "引っ張って更新")
         refreshControl.addTarget(self, action: #selector(self.refreshControlValueChanged(sender:)), for: .valueChanged)
         self.cellTableView.addSubview(refreshControl)
@@ -116,17 +116,17 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
         return ""
     }
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { //セルの内容がタップされた時の処理（データの変更画面）
         if ap.tasks.count >= 1{
             print("セル番号：\(indexPath.row) セルの内容：\(ap.tasks[indexPath.row])")
-            let database = try! Realm()
+            let database = try! Realm() //該当するデータをデリゲートに入れる
             ap.currentData_Name = database.objects(Task.self)[indexPath.row].TaskName
             ap.currentData_Prioroty = database.objects(Task.self)[indexPath.row].priority
             ap.currentData_notificationTime = database.objects(Task.self)[indexPath.row].NotificationTime
             ap.currentData_isNotification = database.objects(Task.self)[indexPath.row].isNotification
             tableView.deselectRow(at: indexPath, animated: true)
             let storyboard: UIStoryboard = self.storyboard!
-            let nextView = storyboard.instantiateViewController(withIdentifier: "EditView") as! EditViewController
+            let nextView = storyboard.instantiateViewController(withIdentifier: "EditView") as! EditViewController //画面遷移
             self.present(nextView, animated: true, completion: nil)
         }
     }
@@ -149,32 +149,18 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
     func tableView(_ tableView: UITableView, titleForDeleteConfirmationButtonForRowAtIndexPath indexPath: NSIndexPath) -> String? {
         return "削除"
     }
-
-
-    
-    func DataDelete(ByDate :Bool) -> String {
-        print("データの削除を行います")
-        var message = ""
-        if ByDate == true{
-            message = "日時削除完了"
-        }else{
-            message = "削除完了"
-        }
-        
-        return message
-    }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) { //画面が表示される度に実行される処理
         super.viewDidAppear(animated)
         let database = try! Realm()
         let PermitData = database.objects(AppMetaData.self).sorted(byKeyPath: "ID", ascending: false)
         print(PermitData)
-        if PermitData.first?.isFirstLaunch == true {
+        if PermitData.first?.isFirstLaunch == true { //初回起動かどうかを判定
             print("初回起動と判断されます")
             let alert = UIAlertController(title: "Message",message: "初期設定を行ってください", preferredStyle: .alert)
             let OKbutton = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
@@ -189,14 +175,14 @@ class TaskViewController : UIViewController, UITableViewDelegate, UITableViewDat
             self.present(alert, animated: true, completion:nil)
         }
     }
-    @objc func viewWillEnterForeground(_ notification: Notification?) {
+    @objc func viewWillEnterForeground(_ notification: Notification?) { //アプリケーションがフォアグラウンドになった時の処理
         if (self.isViewLoaded && (self.view.window != nil)) {
             print("フォアグラウンド")
             RenewHowMany()
         }
         
     }
-    func RenewHowMany() {
+    func RenewHowMany() { //データ件数の更新
         let DataMethod = CreateViewController()
         let DataBase = try! Realm()
         if DataBase.objects(Task.self).count != nil{

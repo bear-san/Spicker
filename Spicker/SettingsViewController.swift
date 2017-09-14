@@ -12,6 +12,8 @@ import SwiftyJSON
 import NCMB
 import RealmSwift
 import Alamofire
+import UserNotifications
+import NotificationCenter
 
 class SettingsViewController : UIViewController, UITableViewDelegate, UITableViewDataSource,UIPickerViewDelegate,UIPickerViewDataSource {
     var yesOrTod = ["前日","当日"]
@@ -81,6 +83,10 @@ class SettingsViewController : UIViewController, UITableViewDelegate, UITableVie
         super.didReceiveMemoryWarning()
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) { //セルの内容がタップされた時の処理（データの変更画面）
+        tableView.deselectRow(at: indexPath, animated: true)
+    }
+    
     func announce() {
         items = []
         let url = "https://mb.api.cloud.nifty.com/2013-09-01/applications/GaasaqXiXrxQLyN6/publicFiles/oshirase.json"
@@ -119,6 +125,8 @@ class SettingsViewController : UIViewController, UITableViewDelegate, UITableVie
         }
         print(newDateUNIX)
         
+        
+        
         let currentData = database.objects(AppMetaData.self).sorted(byKeyPath: "ID", ascending: false)
         
         var isToday = false
@@ -132,6 +140,24 @@ class SettingsViewController : UIViewController, UITableViewDelegate, UITableVie
         try! database.write(){
             currentData.first?.isToday = isToday
         }
+        
+        let notification = UNMutableNotificationContent()
+        
+        let WantFireNotificationTime = TimeInterval(newDateUNIX) - Date().timeIntervalSince1970
+        
+        let center = UNUserNotificationCenter.current()
+        
+        center.removePendingNotificationRequests(withIdentifiers: ["Spicker_Daily"])
+        center.removeDeliveredNotifications(withIdentifiers: ["Spicker_Daily"])
+        
+        notification.title = "タスクは全部終わった？"
+        notification.body = "早速次の日の予定を追加しましょう！"
+        notification.sound = UNNotificationSound.default()
+        let trigger = UNTimeIntervalNotificationTrigger.init(timeInterval: WantFireNotificationTime, repeats: false)
+        let request = UNNotificationRequest.init(identifier: "Spicker_Daily", content: notification, trigger: trigger)
+        
+        center.add(request)
+        
     }
     
     

@@ -8,6 +8,8 @@ iOS10.3.2〜iOS11.0で動作を確認しています
 ## ソフトウェアの概要
 ・今日の「やるべきこと」を管理するためのアプリケーション
 
+・データの保持期間を「終日」に限定し、翌日になったらまた新しいタスクの追加が必要になる
+
 ## ソフトウェアの使用方法
 TaskViewでは、今日やるべきことを一覧にして表示します
 
@@ -26,22 +28,28 @@ TaskViewでは、今日やるべきことを一覧にして表示します
 優先度は入力がない場合は１となります
 
 
-## 使用したオープンソースライブラリ（ライセンス）、概要
-・SwiftyJSON・・・JSONパーサー
+## 使用したライブラリ、概要
+・Alamofire・・・通信ライブラリ、お知らせ一覧の取得に利用
+
+・SwiftyJSON・・・JSONパーサー、Alamofireと連携しお知らせ一覧の取得に利用
 
 ・RealmSwift・・・データベース、タスクや権限情報の記録に使用
 
-・NCMB・・・nifty Mobile Backendにデータを送信する際に使用
+・NCMB・・・Nifty Cloud Mobile Backendにデータを送信する際に使用
+
+・Chameleon・・・オープンソースの色のプリセットライブラリ
 
 ## 各ソースファイルの役割など
-・AppDelegate.swift -> 起動時の処理／表示している画面にかかわらず実行されるプログラム
+・AppDelegate.swift -> 起動時の処理、表示している画面にかかわらず実行される処理
 
 ・FirstSettings.swift -> 初期設定が必要な場合の初期設定（設定データへの書き込み）を管理
 
 ・Main.storyboard -> アプリのUIを管理
 
-・CreateViewController -> データの新規追加／削除を管理（他のプログラムから呼び出しできるよう関数にしている）
+・CreateViewController -> データの新規追加／削除を管理（他のプログラムから呼び出しできる）
 
 ・TaskViewController -> タスクのデータ読み込み、一覧の表示を管理
 
 ・SettingsViewController -> 設定情報の書き換え、お知らせの表示を管理
+
+・EditViewController -> データの修正・変更を管理（CreateViewController内のデータ削除・追加処理を使用）

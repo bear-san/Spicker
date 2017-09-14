@@ -45,11 +45,8 @@ class CreateViewController : UIViewController {
     @IBOutlet weak var Number: UITextField!
     override func viewDidLoad(){
         super.viewDidLoad()
-        //let database = try! Realm()
-        
-        //let PermitDataLocal = AppMetaData()
-        permitCreate()
-        let statusBar = UIView(frame:CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 20.0))
+
+        let statusBar = UIView(frame:CGRect(x: 0.0, y: 0.0, width: UIScreen.main.bounds.size.width, height: 20.0)) //ステータスバーの位置にUINavigationBarと同じ色を配置する
         statusBar.backgroundColor = UIColor.flatTeal
         
         view.addSubview(statusBar)
@@ -62,50 +59,6 @@ class CreateViewController : UIViewController {
         super.didReceiveMemoryWarning()
     }
     
-    func permitCreate() {
-        let data = try! Realm()
-        let PermitData = data.objects(AppMetaData.self).sorted(byKeyPath: "isFirstLaunch", ascending: true)
-        
-        if PermitData.first?.isFirstLaunch == true{
-            let alert = UIAlertController(title: "利用状況の送信",message: "アプリの品質向上のため、\n利用状況の送信に同意しますか？\n \n***送信されるデータ***\n・タスクを追加した日\n・タスクの名前\n・タスクの優先度\n・タスクの通知時間\n　\n送信されたデータはユーザーの特定が出来ない形で保存され、ユーザーの許可なしに第三者へ提供することは一切ありません \nなおこの設定は後から「Settings」で変更できます", preferredStyle: .alert)
-            let OKbutton = UIAlertAction(title: "同意する", style: UIAlertActionStyle.default, handler: { action in
-                print("許可されました")
-                let data = try! Realm()
-                let AddData = AppMetaData()
-                
-                let ID = PermitData.count + 1
-                AddData.ID = ID
-                AddData.isFirstLaunch = false
-                AddData.isSendDataPermission = true
-                AddData.CloseTask = 0
-                
-                try! data.write() {
-                    data.add(AddData)
-                }
-            })
-            let NGbutton = UIAlertAction(title: "同意しない", style: UIAlertActionStyle.destructive, handler: { action in
-                print("許可されませんでした")
-                let data = try! Realm()
-                let AddData = AppMetaData()
-                
-                let ID = PermitData.count + 1
-                AddData.ID = ID
-                AddData.isFirstLaunch = false
-                AddData.isSendDataPermission = false
-                AddData.CloseTask = 0
-                
-                try! data.write() {
-                    data.add(AddData)
-                }
-            })
-            alert.addAction(OKbutton)
-            alert.addAction(NGbutton)
-            
-            self.present(alert, animated: true, completion:nil)
-        }else{
-            print("初回起動ではありません")
-        }
-    }
     @IBAction func Register(_ sender: Any) { //データ登録
         Priority_box.endEditing(true)
         TaskName_box.endEditing(true)
@@ -119,11 +72,15 @@ class CreateViewController : UIViewController {
             isNotification_Local = false
         }
         
+        //入力された情報を引数にデータの新規追加処理
         DataAdd(Name: TaskName_box.text!, Priority: Priority_box.text!, isNotification: isNotification_Local, notificationTime: notificationTimeInUNIX)
         
         Priority_box.text = ""
         TaskName_box.text = ""
     }
+    
+    ///データの新規追加（必要な情報を引数にして処理）///
+    
     func DataAdd(Name:String,Priority:String,isNotification:Bool,notificationTime:Double){
         
         var isCanRegister = false
@@ -151,7 +108,7 @@ class CreateViewController : UIViewController {
         if isNotification == true{
             isCanRegister = true
         }else{
-            if notificationTime <= 0 {
+            if notificationTime <= 0 { //通知をオンにしているにもかかわらず、過去の時間を選択している場合の処理
                 let alert = UIAlertController(title: "エラー",message: "時間は未来の時間を選択してください", preferredStyle: .alert)
                 let OKbutton = UIAlertAction(title: "OK", style: UIAlertActionStyle.default, handler: { action in
                     isCanRegister = false
@@ -243,7 +200,9 @@ class CreateViewController : UIViewController {
             print(CurrentPriority)
             
             var MetaData = database.objects(AppMetaData.self).sorted(byKeyPath: "ID", ascending: false)
-            if MetaData.first?.isSendDataPermission == true && MetaData.first?.isFirstLaunch == false{
+            if MetaData.first?.isSendDataPermission == true && MetaData.first?.isFirstLaunch == false{ //データの送信が許可されているかどうかの確認
+                
+                ///***データの送信が許可されている場合の処理***///
                 print("データの送信が許可されています")
                 let date = Date()
                 let format = DateFormatter()
@@ -268,12 +227,13 @@ class CreateViewController : UIViewController {
                     }
                 })
             }else{
+                ///***データの送信が許可されていない場合の処理***///
                 print("データの送信は許可されていません")
                 print(MetaData)
             }
             let nowDate = Data()
             
-            //Int型で現在時刻を取得
+            ///***通知セッションの作成***///
             
             if isNotification == false{
                 let notification_left_time = Date.init(timeIntervalSinceNow: notificationTimeInJSTfrom1970)
@@ -299,6 +259,51 @@ class CreateViewController : UIViewController {
         }
     }
     
+    func permitCreate() {
+        let data = try! Realm()
+        let PermitData = data.objects(AppMetaData.self).sorted(byKeyPath: "isFirstLaunch", ascending: true)
+        
+        if PermitData.first?.isFirstLaunch == true{
+            let alert = UIAlertController(title: "利用状況の送信",message: "アプリの品質向上のため、\n利用状況の送信に同意しますか？\n \n***送信されるデータ***\n・タスクを追加した日\n・タスクの名前\n・タスクの優先度\n・タスクの通知時間\n　\n送信されたデータはユーザーの特定が出来ない形で保存され、ユーザーの許可なしに第三者へ提供することは一切ありません \nなおこの設定は後から「Settings」で変更できます", preferredStyle: .alert)
+            let OKbutton = UIAlertAction(title: "同意する", style: UIAlertActionStyle.default, handler: { action in
+                print("許可されました")
+                let data = try! Realm()
+                let AddData = AppMetaData()
+                
+                let ID = PermitData.count + 1
+                AddData.ID = ID
+                AddData.isFirstLaunch = false
+                AddData.isSendDataPermission = true
+                AddData.CloseTask = 0
+                
+                try! data.write() {
+                    data.add(AddData)
+                }
+            })
+            let NGbutton = UIAlertAction(title: "同意しない", style: UIAlertActionStyle.destructive, handler: { action in
+                print("許可されませんでした")
+                let data = try! Realm()
+                let AddData = AppMetaData()
+                
+                let ID = PermitData.count + 1
+                AddData.ID = ID
+                AddData.isFirstLaunch = false
+                AddData.isSendDataPermission = false
+                AddData.CloseTask = 0
+                
+                try! data.write() {
+                    data.add(AddData)
+                }
+            })
+            alert.addAction(OKbutton)
+            alert.addAction(NGbutton)
+            
+            self.present(alert, animated: true, completion:nil)
+        }else{
+            print("初回起動ではありません")
+        }
+    }
+    ///データの削除（登録されている優先度をキーにRealmから検索して削除）
     func DataDeletePerDay(dataKeyPriority :Int) -> String{
         var Result = ""
         let OldDataBase = try! Realm()
@@ -327,6 +332,7 @@ class CreateViewController : UIViewController {
     }
     
     func TimeControl() {
+        ///***メタデータに最後にデータを登録した日の日付を記録***///
         let Today = Date()
         let dateFormat = DateFormatter()
         dateFormat.dateFormat = "YYYY-MM-dd"
@@ -357,30 +363,9 @@ class CreateViewController : UIViewController {
         }
         
     }
+
     
-    func application(application: UIApplication, didReceiveRemoteNotification userInfo: [NSObject : AnyObject], fetchCompletionHandler completionHandler: (UIBackgroundFetchResult) -> Void){
-        print("通知を受信しました")
-    }
-    
-    func JsonGet(fileName :String) -> JSON {
-        let Document_path = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0] as String
-        let path = Document_path + "/" + fileName + ".json"
-        print(path)
-        
-        do{
-            let jsonStr = try String(contentsOfFile: path)
-            print(jsonStr)
-            
-            let json = JSON.parse(jsonStr)
-            
-            return json
-        } catch {
-            return nil
-        }
-        
-    }
-    
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { //キーボード以外の画面がタッチされた場合の処理（キーボードを閉じる）
         self.view.endEditing(true)
     }
 }

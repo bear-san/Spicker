@@ -282,12 +282,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         }
     }
     
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        // MARK: アプリが起動しているときに実行される処理を追記する場所
-        print("通知ｷﾀ━━━━(ﾟ∀ﾟ)━━━━!!")
-        
-    }
-    
     func saveContext () {
         let context = persistentContainer.viewContext
         if context.hasChanges {
